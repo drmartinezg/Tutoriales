@@ -1,0 +1,4 @@
+# Ignora los directorios de compilación
+target
+# Ignora los archivos compilados
+*.class
