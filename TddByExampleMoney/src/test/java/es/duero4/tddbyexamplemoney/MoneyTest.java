@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
- * -> $5 * 2 = $10
+ * OK $5 * 2 = $10
  *    Make “amount” private
  *    Dollar side-effects?
  * Money rounding?
