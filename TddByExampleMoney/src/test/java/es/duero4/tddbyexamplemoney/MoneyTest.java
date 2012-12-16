@@ -16,13 +16,14 @@ import static org.junit.Assert.*;
  * @author Ramon
  * 
  * Chapter 3 - Money Example
+ * Chapter 4 - Degenerate Objects
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
  * OK $5 * 2 = $10
  *    Make “amount” private
- *    Dollar side-effects?
- * Money rounding?
+ * -> Dollar side-effects?
+ *    Money rounding?
  * 
  */
 public class MoneyTest {
@@ -51,5 +52,7 @@ public class MoneyTest {
         Dollar five = new Dollar(5);
         five.times(2);
         assertEquals(10, five.amount);
+        five.times(3);
+        assertEquals(15, five.amount);
     }
 }
