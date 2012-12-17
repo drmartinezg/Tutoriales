@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * 
  * Chapter 3 - Money Example
  * Chapter 4 - Degenerate Objects
+ * Chapter 5 - Equality for All
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
@@ -24,6 +25,8 @@ import static org.junit.Assert.*;
  *    Make “amount” private
  * OK Dollar side-effects?
  *    Money rounding?
+ * -> equals()
+ *    hashCode()
  * 
  */
 public class MoneyTest {
@@ -54,5 +57,10 @@ public class MoneyTest {
         assertEquals(10, product.amount);
         product = five.times(3);
         assertEquals(15, product.amount);
+    }
+    
+    @Test
+    public void testEquality() {
+        assertTrue(new Dollar(5).equals(new Dollar(5)));
     }
 }
