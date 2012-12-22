@@ -10,7 +10,7 @@ package es.duero4.tddbyexamplemoney;
  * 
  */
 class Dollar {
-    int amount;
+    private int amount;
 
     Dollar(int amount) {
         this.amount = amount;
