@@ -5,8 +5,7 @@ package es.duero4.tddbyexamplemoney;
  * @author Ramon
  * 
  */
-class Franc {
-    private int amount;
+class Franc extends Money {
 
     public Franc(int amount) {
         this.amount = amount;
