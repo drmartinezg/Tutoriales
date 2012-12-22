@@ -17,8 +17,8 @@ class Dollar extends Money {
 
     @Override
     public boolean equals(Object obj) {
-        Dollar dollar = (Dollar) obj;
-        return amount == dollar.amount;
+        Money money = (Money) obj;
+        return amount == money.amount;
     }
     
 }
