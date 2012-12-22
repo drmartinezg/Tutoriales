@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package es.duero4.tddbyexamplemoney;
 
 import org.junit.After;
@@ -20,7 +16,7 @@ import static org.junit.Assert.*;
  * Chapter 5 - Equality for All
  * Chapter 6 - Privacy
  * Chapter 7 - Franc-ly Speaking
- * 
+ * Chapter 8 - Equality for All, Redux
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
@@ -34,7 +30,7 @@ import static org.junit.Assert.*;
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
  *    Dollar/Franc duplication
- *    Common equals
+ * -> Common equals
  *    Common times
  * 
  */
