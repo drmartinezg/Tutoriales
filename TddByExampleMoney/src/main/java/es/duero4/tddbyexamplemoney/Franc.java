@@ -15,10 +15,4 @@ class Franc extends Money {
         return new Franc(amount * multiplier);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        Money money = (Money) obj;
-        return amount == money.amount;
-    }
-    
 }

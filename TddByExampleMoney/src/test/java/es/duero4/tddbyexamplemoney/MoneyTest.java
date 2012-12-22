@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
  *    Dollar/Franc duplication
- * -> Common equals
+ * OK Common equals
  *    Common times
  * 
  */
