@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
  * Chapter 7 - Franc-ly Speaking
  * Chapter 8 - Equality for All, Redux
  * Chapter 9 - Apples and Oranges
+ * Chapter 10 - Makin' Objects
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
@@ -30,7 +31,7 @@ import static org.junit.Assert.*;
  *    Equal null
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
- *    Dollar/Franc duplication
+ * -> Dollar/Franc duplication
  * OK Common equals
  *    Common times
  * OK Compare Francs to Dollars
