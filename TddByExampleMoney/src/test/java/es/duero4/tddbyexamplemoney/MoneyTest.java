@@ -33,7 +33,8 @@ import static org.junit.Assert.*;
  *    Dollar/Franc duplication
  * OK Common equals
  *    Common times
- * -> Compare Francs to Dollars
+ * OK Compare Francs to Dollars
+ *    Currency?
  * 
  */
 public class MoneyTest {
