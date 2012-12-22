@@ -22,7 +22,8 @@ class Dollar {
 
     @Override
     public boolean equals(Object obj) {
-        return true;
+        Dollar dollar = (Dollar) obj;
+        return amount == dollar.amount;
     }
     
 }

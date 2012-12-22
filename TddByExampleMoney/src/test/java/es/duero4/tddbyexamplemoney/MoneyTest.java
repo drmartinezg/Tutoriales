@@ -25,8 +25,10 @@ import static org.junit.Assert.*;
  *    Make “amount” private
  * OK Dollar side-effects?
  *    Money rounding?
- * -> equals()
+ * OK equals()
  *    hashCode()
+ *    Equal null
+ *    Equal object
  * 
  */
 public class MoneyTest {
@@ -62,5 +64,6 @@ public class MoneyTest {
     @Test
     public void testEquality() {
         assertTrue(new Dollar(5).equals(new Dollar(5)));
+        assertFalse(new Dollar(5).equals(new Dollar(6)));
     }
 }
