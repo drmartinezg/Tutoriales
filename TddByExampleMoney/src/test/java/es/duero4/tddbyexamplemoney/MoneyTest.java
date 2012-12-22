@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
  * Chapter 3 - Money Example
  * Chapter 4 - Degenerate Objects
  * Chapter 5 - Equality for All
+ * Chapter 6 - Privacy
+ * Chapter 7 - Franc-ly Speaking
+ * 
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
@@ -29,6 +32,10 @@ import static org.junit.Assert.*;
  *    hashCode()
  *    Equal null
  *    Equal object
+ * OK 5 CHF * 2 = 10 CHF
+ *    Dollar/Franc duplication
+ *    Common equals
+ *    Common times
  * 
  */
 public class MoneyTest {
@@ -57,6 +64,13 @@ public class MoneyTest {
         Dollar five = new Dollar(5);
         assertEquals(new Dollar(10), five.times(2));
         assertEquals(new Dollar(15), five.times(3));
+    }
+    
+    @Test
+    public void testFrancMultiplication() {
+        Franc five = new Franc(5);
+        assertEquals(new Franc(10), five.times(2));
+        assertEquals(new Franc(15), five.times(3));
     }
     
     @Test
