@@ -5,15 +5,15 @@ package es.duero4.tddbyexamplemoney;
  * @author Ramon
  * 
  */
-class Franc extends Money {
+public class Franc extends Money {
 
     public Franc(int amount, String currency) {
         super(amount, currency);
     }
     
     @Override
-    Money times(int multiplier) {
-        return Money.franc(amount * multiplier);
+    public Money times(int multiplier) {
+        return new Money(amount * multiplier, currency);
     }
 
     @Override

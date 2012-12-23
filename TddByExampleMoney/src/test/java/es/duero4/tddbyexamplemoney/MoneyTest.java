@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
  * Chapter 9 - Apples and Oranges
  * Chapter 10 - Makin' Objects
  * Chapter 11 - Times We're Livin' In
+ * Chapter 12 - Interesting Times
  * 
  * 
  * TO-DO List:
@@ -33,9 +34,9 @@ import static org.junit.Assert.*;
  *    Equal null
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
- * -> Dollar/Franc duplication
+ *    Dollar/Franc duplication
  * OK Common equals
- *    Common times
+ * -> Common times
  * OK Compare Francs to Dollars
  * OK Currency?
  *    Delete testFrancMultiplication?
@@ -89,5 +90,10 @@ public class MoneyTest {
     public void testCurrency() {
         assertEquals("USD", Money.dollar(1).currency());
         assertEquals("CHF", Money.franc(1).currency());
+    }
+    
+    @Test
+    public void testDifferentClassEquality() {
+        assertTrue(new Money(10, "CHF").equals(new Franc(10, "CHF")));
     }
 }
