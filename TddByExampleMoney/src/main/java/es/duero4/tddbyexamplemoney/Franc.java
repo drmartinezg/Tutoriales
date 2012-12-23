@@ -6,9 +6,11 @@ package es.duero4.tddbyexamplemoney;
  * 
  */
 class Franc extends Money {
+    private String currency;
 
     public Franc(int amount) {
         this.amount = amount;
+        currency = "CHF";
     }
     
     Money times(int multiplier) {
@@ -17,7 +19,7 @@ class Franc extends Money {
 
     @Override
     String currency() {
-        return "CHF";
+        return currency;
     }
 
 }
