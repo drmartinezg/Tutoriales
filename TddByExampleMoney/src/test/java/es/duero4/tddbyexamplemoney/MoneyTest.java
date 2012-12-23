@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
  * Chapter 8 - Equality for All, Redux
  * Chapter 9 - Apples and Oranges
  * Chapter 10 - Makin' Objects
+ * Chapter 11 - Times We're Livin' In
+ * 
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
@@ -31,11 +33,11 @@ import static org.junit.Assert.*;
  *    Equal null
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
- * -> Dollar/Franc duplication
+ *    Dollar/Franc duplication
  * OK Common equals
  *    Common times
  * OK Compare Francs to Dollars
- *    Currency?
+ * -> Currency?
  *    Delete testFrancMultiplication?
  * 
  */
@@ -81,5 +83,11 @@ public class MoneyTest {
         assertTrue(Money.franc(5).equals(Money.franc(5)));
         assertFalse(Money.franc(5).equals(Money.franc(6)));
         assertFalse(Money.franc(5).equals(Money.dollar(5)));
+    }
+    
+    @Test
+    public void testCurrency() {
+        assertEquals("USD", Money.dollar(1).currency());
+        assertEquals("CHF", Money.franc(1).currency());
     }
 }

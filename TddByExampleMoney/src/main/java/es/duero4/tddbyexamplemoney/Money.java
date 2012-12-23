@@ -16,6 +16,7 @@ public abstract class Money {
 
     protected int amount;
     
+    abstract String currency();
     abstract Money times(int multiplier);
     
     @Override
