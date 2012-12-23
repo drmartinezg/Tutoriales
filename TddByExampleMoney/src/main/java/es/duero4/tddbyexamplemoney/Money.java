@@ -4,9 +4,16 @@ package es.duero4.tddbyexamplemoney;
  *
  * @author Ramon
  */
-public class Money {
-    protected int amount;
+public abstract class Money {
 
+    static Money dollar(int amount) {
+        return new Dollar(amount);
+    }
+
+    protected int amount;
+    
+    abstract Money times(int multiplier);
+    
     @Override
     public boolean equals(Object obj) {
         Money money = (Money) obj;
