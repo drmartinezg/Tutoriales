@@ -11,13 +11,17 @@ public abstract class Money {
     }
 
     static Money franc(int amount) {
-        return new Franc(amount);
+        return new Franc(amount, null);
     }
 
     protected int amount;
+    protected String currency;
     
-    abstract String currency();
     abstract Money times(int multiplier);
+    
+    String currency(){
+        return currency;
+    }
     
     @Override
     public boolean equals(Object obj) {
