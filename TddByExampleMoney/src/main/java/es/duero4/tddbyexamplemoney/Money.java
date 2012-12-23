@@ -18,6 +18,11 @@ public abstract class Money {
     protected String currency;
     
     abstract Money times(int multiplier);
+
+    public Money(int amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
     
     String currency(){
         return currency;

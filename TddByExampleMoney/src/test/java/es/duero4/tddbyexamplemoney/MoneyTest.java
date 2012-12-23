@@ -33,11 +33,11 @@ import static org.junit.Assert.*;
  *    Equal null
  *    Equal object
  * OK 5 CHF * 2 = 10 CHF
- *    Dollar/Franc duplication
+ * -> Dollar/Franc duplication
  * OK Common equals
  *    Common times
  * OK Compare Francs to Dollars
- * -> Currency?
+ * OK Currency?
  *    Delete testFrancMultiplication?
  * 
  */

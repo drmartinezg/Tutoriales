@@ -6,13 +6,12 @@ package es.duero4.tddbyexamplemoney;
  * 
  */
 class Dollar extends Money {
-    private String currency;
 
     Dollar(int amount, String currency) {
-        this.amount = amount;
-        this.currency = currency;
+        super(amount, currency);
     }
 
+    @Override
     Money times(int multiplier) {
         return Money.dollar(amount * multiplier);
     }
