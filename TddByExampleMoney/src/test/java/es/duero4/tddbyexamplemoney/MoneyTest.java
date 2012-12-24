@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
  * OK 5 CHF * 2 = 10 CHF
  *    Dollar/Franc duplication
  * OK Common equals
- * -> Common times
+ * OK Common times
  * OK Compare Francs to Dollars
  * OK Currency?
  *    Delete testFrancMultiplication?
