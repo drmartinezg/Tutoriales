@@ -22,25 +22,12 @@ import static org.junit.Assert.*;
  * Chapter 11 - Times We're Livin' In
  * Chapter 12 - Interesting Times
  * Chapter 13 - The Root of all Evil
+ * Chapter 14 - Addition, Finally
  * 
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
- * OK $5 * 2 = $10
- * OK Make “amount” private
- * OK Dollar side-effects?
- *    Money rounding?
- * OK equals()
- *    hashCode()
- *    Equal null
- *    Equal object
- * OK 5 CHF * 2 = 10 CHF
- * OK Dollar/Franc duplication
- * OK Common equals
- * OK Common times
- * OK Compare Francs to Dollars
- * OK Currency?
- * OK Delete testFrancMultiplication?
+ * -> $5 + $5 = $10
  * 
  */
 public class MoneyTest {
@@ -82,6 +69,12 @@ public class MoneyTest {
     public void testCurrency() {
         assertEquals("USD", Money.dollar(1).currency());
         assertEquals("CHF", Money.franc(1).currency());
+    }
+    
+    @Test
+    public void testSimpleAddition() {
+        Money sum = Money.dollar(5).plus(Money.dollar(5));
+        assertEquals(Money.dollar(10), sum);
     }
     
 }
