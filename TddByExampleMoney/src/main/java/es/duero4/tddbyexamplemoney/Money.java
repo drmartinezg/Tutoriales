@@ -4,7 +4,7 @@ package es.duero4.tddbyexamplemoney;
  *
  * @author Ramon
  */
-public class Money {
+public class Money implements Expression {
 
     static Money dollar(int amount) {
         return new Money(amount, "USD");
@@ -42,7 +42,7 @@ public class Money {
         return amount + " " + currency ;
     }
 
-    Money plus(Money addend) {
+    Expression plus(Money addend) {
         return new Money(amount + addend.amount, currency);
     }
 
