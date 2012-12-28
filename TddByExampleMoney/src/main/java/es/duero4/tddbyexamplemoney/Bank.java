@@ -8,7 +8,7 @@ package es.duero4.tddbyexamplemoney;
  *
  * @author Ramon
  */
-class Bank {
+public class Bank {
 
     Money reduce(Expression source, String to) {
         return Money.dollar(10);

@@ -23,11 +23,13 @@ import static org.junit.Assert.*;
  * Chapter 12 - Interesting Times
  * Chapter 13 - The Root of all Evil
  * Chapter 14 - Addition, Finally
+ * Chapter 15 - Make It
  * 
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
  * -> $5 + $5 = $10
+ *    Return Money from $5 + $5
  * 
  */
 public class MoneyTest {
@@ -80,4 +82,12 @@ public class MoneyTest {
         assertEquals(Money.dollar(10), reduced);
     }
     
+    @Test
+    public void testPlusReturnsSum() {
+        Money five = Money.dollar(5);
+        Expression result = five.plus(five);
+        Sum sum = (Sum) result;
+        assertEquals(five, sum.augend);
+        assertEquals(five, sum.addend);
+    }
 }
