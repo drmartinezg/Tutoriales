@@ -30,6 +30,7 @@ import static org.junit.Assert.*;
  *    $5 + 10 CHF = $10 if rate is 2:1
  * -> $5 + $5 = $10
  *    Return Money from $5 + $5
+ *    Bank.reduce(Money)
  * 
  */
 public class MoneyTest {
@@ -97,5 +98,12 @@ public class MoneyTest {
         Bank bank = new Bank();
         Money result = bank.reduce(sum, "USD");
         assertEquals(Money.dollar(7), result);
+    }
+    
+    @Test
+    public void testReduceMoney() {
+        Bank bank = new Bank();
+        Money result = bank.reduce(Money.dollar(1), "USD");
+        assertEquals(Money.dollar(1), result);
     }
 }
