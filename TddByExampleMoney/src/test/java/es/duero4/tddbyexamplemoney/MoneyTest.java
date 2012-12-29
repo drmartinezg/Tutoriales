@@ -25,10 +25,11 @@ import static org.junit.Assert.*;
  * Chapter 14 - Addition, Finally
  * Chapter 15 - Make It
  * Chapter 16 - Change
+ * Chapter 17 - Mixed Currencies
  * 
  * 
  * TO-DO List:
- *    $5 + 10 CHF = $10 if rate is 2:1
+ * -> $5 + 10 CHF = $10 if rate is 2:1
  * OK $5 + $5 = $10
  *    Return Money from $5 + $5
  * OK Bank.reduce(Money)
@@ -121,6 +122,16 @@ public class MoneyTest {
     @Test
     public void testIdentityRate() {
         assertEquals(1, new Bank().rate("USD", "USD"));
+    }
+    
+    @Test
+    public void testMixedAddition() {
+        Money fiveBucks = Money.dollar(5);
+        Money tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+        assertEquals(Money.dollar(10), result);
     }
 }
 
