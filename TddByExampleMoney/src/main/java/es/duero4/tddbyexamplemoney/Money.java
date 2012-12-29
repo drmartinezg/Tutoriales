@@ -22,11 +22,11 @@ public class Money implements Expression {
         this.currency = currency;
     }
     
-    public Money times(int multiplier) {
+    public Expression times(int multiplier) {
         return new Money(amount * multiplier, currency);
     };
     
-    String currency(){
+    public String currency(){
         return currency;
     }
     
@@ -42,7 +42,8 @@ public class Money implements Expression {
         return amount + " " + currency ;
     }
 
-    Expression plus(Money addend) {
+    @Override
+    public Expression plus(Expression addend) {
         return new Sum(this, addend);
     }
 
@@ -52,5 +53,4 @@ public class Money implements Expression {
         return new Money(amount / rate, to);
     }
 
-    
 }

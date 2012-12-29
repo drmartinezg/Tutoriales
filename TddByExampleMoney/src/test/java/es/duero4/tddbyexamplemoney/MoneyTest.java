@@ -29,12 +29,14 @@ import static org.junit.Assert.*;
  * 
  * 
  * TO-DO List:
- * -> $5 + 10 CHF = $10 if rate is 2:1
+ * OK $5 + 10 CHF = $10 if rate is 2:1
  * OK $5 + $5 = $10
  *    Return Money from $5 + $5
  * OK Bank.reduce(Money)
  * OK Reduce Money with conversion
  * OK Reduce(Bank, String)
+ *    Sum.plus
+ *    Expression.times
  * 
  */
 public class MoneyTest {
@@ -126,8 +128,8 @@ public class MoneyTest {
     
     @Test
     public void testMixedAddition() {
-        Money fiveBucks = Money.dollar(5);
-        Money tenFrancs = Money.franc(10);
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
         Bank bank = new Bank();
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
