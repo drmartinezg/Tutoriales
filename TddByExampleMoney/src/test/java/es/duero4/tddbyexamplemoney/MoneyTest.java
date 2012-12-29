@@ -26,6 +26,7 @@ import static org.junit.Assert.*;
  * Chapter 15 - Make It
  * Chapter 16 - Change
  * Chapter 17 - Mixed Currencies
+ * Chapter 18 - Abstraction, Finally
  * 
  * 
  * TO-DO List:
@@ -35,7 +36,7 @@ import static org.junit.Assert.*;
  * OK Bank.reduce(Money)
  * OK Reduce Money with conversion
  * OK Reduce(Bank, String)
- *    Sum.plus
+ * OK Sum.plus
  *    Expression.times
  * 
  */
@@ -134,6 +135,17 @@ public class MoneyTest {
         bank.addRate("CHF", "USD", 2);
         Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
         assertEquals(Money.dollar(10), result);
+    }
+    
+    @Test
+    public void testSumPlusMoney() {
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Expression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+        Money result = bank.reduce(sum, "USD");
+        assertEquals(Money.dollar(15), result);
     }
 }
 
