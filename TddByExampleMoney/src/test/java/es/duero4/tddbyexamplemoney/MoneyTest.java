@@ -32,12 +32,12 @@ import static org.junit.Assert.*;
  * TO-DO List:
  * OK $5 + 10 CHF = $10 if rate is 2:1
  * OK $5 + $5 = $10
- *    Return Money from $5 + $5
+ * OK Return Money from $5 + $5
  * OK Bank.reduce(Money)
  * OK Reduce Money with conversion
  * OK Reduce(Bank, String)
  * OK Sum.plus
- * -> Expression.times
+ * OK Expression.times
  * 
  */
 public class MoneyTest {
@@ -158,5 +158,6 @@ public class MoneyTest {
        Money result = bank.reduce(sum, "USD");
        assertEquals(Money.dollar(20), result);
     }
+
 }
 
