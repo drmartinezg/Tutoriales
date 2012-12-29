@@ -24,13 +24,16 @@ import static org.junit.Assert.*;
  * Chapter 13 - The Root of all Evil
  * Chapter 14 - Addition, Finally
  * Chapter 15 - Make It
+ * Chapter 16 - Change
  * 
  * 
  * TO-DO List:
  *    $5 + 10 CHF = $10 if rate is 2:1
- * -> $5 + $5 = $10
+ * OK $5 + $5 = $10
  *    Return Money from $5 + $5
- *    Bank.reduce(Money)
+ * OK Bank.reduce(Money)
+ * OK Reduce Money with conversion
+ * OK Reduce(Bank, String)
  * 
  */
 public class MoneyTest {
@@ -106,4 +109,18 @@ public class MoneyTest {
         Money result = bank.reduce(Money.dollar(1), "USD");
         assertEquals(Money.dollar(1), result);
     }
+    
+    @Test
+    public void testReduceMoneyDifferentCurrency() {
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result = bank.reduce(Money.franc(2), "USD");
+        assertEquals(Money.dollar(1), result);
+    }
+    
+    @Test
+    public void testIdentityRate() {
+        assertEquals(1, new Bank().rate("USD", "USD"));
+    }
 }
+
