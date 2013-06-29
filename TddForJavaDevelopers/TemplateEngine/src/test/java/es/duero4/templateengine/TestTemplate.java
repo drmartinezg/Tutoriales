@@ -45,4 +45,13 @@ public class TestTemplate {
         template.set("name", "someone else");
         assertEquals("Hi, someone else", template.evaluate());
     }
+    
+    @Test
+    public void multipleVariables() throws Exception {
+        Template template = new Template("${one}, ${two}, ${three}");
+        template.set("one", "1");
+        template.set("two", "2");
+        template.set("three", "3");
+        assertEquals("1, 2, 3", template.evaluate());
+    }
 }
