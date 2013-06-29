@@ -27,6 +27,9 @@ class Template {
             String regex = "\\$\\{" + entry.getKey() + "\\}";
             result = result.replaceAll(regex, entry.getValue());
         }
+        if (result.matches(".*\\$\\{.+\\}.*")) {
+            throw new MissingValueException();
+        }
         return result;
     }
 }

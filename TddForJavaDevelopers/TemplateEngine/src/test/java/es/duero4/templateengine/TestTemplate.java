@@ -48,6 +48,22 @@ public class TestTemplate {
         template.set("doesnotexist", "whatever");
         assertTemplateEvaluatesTo("1, 2, 3");
     }
+
+    @Test
+    public void missingValueRaisesException() throws Exception {
+        try {
+            new Template("${foo}").evaluate();
+            fail("evaluate() should throw an exception if "
+                    + "a variable was left without a value!");
+        } catch (MissingValueException expected) {
+        }
+ 
+    }
+    
+    @Test(expected=MissingValueException.class)
+    public void testMissingValueRaisesException() throws Exception {
+        new Template("${foo}").evaluate();
+    }
     
     private void assertTemplateEvaluatesTo(String expected) {
         assertEquals(expected, template.evaluate());
