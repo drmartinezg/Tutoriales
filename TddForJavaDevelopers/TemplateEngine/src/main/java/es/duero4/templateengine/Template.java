@@ -6,8 +6,10 @@ package es.duero4.templateengine;
  */
 class Template {
     private String variableValue;
+    private final String templateText;
 
     public Template(String templateText) {
+        this.templateText = templateText;
     }
 
     void set(String variable, String value) {
@@ -15,6 +17,6 @@ class Template {
     }
     
     public String evaluate() {
-        return "Hello, " + variableValue;
+        return templateText.replaceAll("\\$\\{name\\}", variableValue);
     }
 }

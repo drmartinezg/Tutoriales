@@ -40,9 +40,9 @@ public class TestTemplate {
     }
     
     @Test
-    public void differentValue() throws Exception {
-        Template template = new Template("Hello, ${name}");
+    public void differentTemplate() throws Exception {
+        Template template = new Template("Hi, ${name}");
         template.set("name", "someone else");
-        assertEquals("Hello, someone else", template.evaluate());
+        assertEquals("Hi, someone else", template.evaluate());
     }
 }
