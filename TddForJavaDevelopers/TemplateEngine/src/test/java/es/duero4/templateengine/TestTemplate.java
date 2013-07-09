@@ -1,5 +1,6 @@
 package es.duero4.templateengine;
 
+import org.junit.Ignore;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -66,6 +67,7 @@ public class TestTemplate {
         new Template("${foo}").evaluate();
     }
     
+    @Ignore
     @Test
     public void variablesGetProcessedJustOnce() {
         template.set("one", "${one}");
