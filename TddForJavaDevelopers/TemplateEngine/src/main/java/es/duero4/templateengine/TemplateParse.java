@@ -1,6 +1,6 @@
 package es.duero4.templateengine;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,10 +9,8 @@ import java.util.List;
  */
 class TemplateParse {
 
-    List<String> parse(String string) {
-        List<String> segments = new ArrayList<String>();
-        segments.add("");
-        return segments;
+    List<String> parse(String template) {
+        return Collections.singletonList(template);
     }
     
 }
