@@ -1,5 +1,6 @@
 package es.duero4.templateengine;
 
+import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -36,18 +37,23 @@ public class TestTemplateParse {
     @Test
     public void emptyTemplateRendersAsEmptyString() {
         List<String> segments = parse("");
-        assertEquals("Number of segments", 1, segments.size());
-        assertEquals("", segments.get(0));
+        assertSegments(segments, "");
     }
 
     @Test
     public void templateWithOnlyPlainText() {
         List<String> segments = parse("plain text only");
-        assertEquals("Number of segments", 1, segments.size());
-        assertEquals("plain text only", segments.get(0));
+        assertSegments(segments, "plain text only");
     }
 
     private List<String> parse(String template) {
         return new TemplateParse().parse(template);
+    }
+    
+    private void assertSegments(List<? extends Object> actual,
+                                Object... expected) {
+        assertEquals("Number of segments doesn't match.",
+                     expected.length, actual.size());
+        assertEquals(Arrays.asList(expected), actual);
     }
 }
