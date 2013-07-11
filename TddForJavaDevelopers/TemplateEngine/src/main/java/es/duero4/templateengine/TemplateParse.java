@@ -55,7 +55,17 @@ class TemplateParse {
     }
 
     List<Segment> parseSegments(String template) {
-        return null;
+        List<Segment> segments = new ArrayList<Segment>();
+        List<String> strings = parse(template);
+        for (String s : strings) {
+            if (Template.isVariable(s)) {
+                String name = s.substring(2, s.length() - 1);
+                segments.add(new Variable(name));
+            } else {
+                segments.add(new PlainText(s));
+            }
+        }
+        return segments;
     }
     
 }

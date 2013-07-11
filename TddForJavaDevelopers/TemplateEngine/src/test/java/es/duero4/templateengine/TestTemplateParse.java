@@ -52,14 +52,14 @@ public class TestTemplateParse {
         assertSegments(segments, "${a}", ":", "${b}", ":", "${c}");
     }
 
-//    @Test
-//    public void parsingTemplateIntoSegmentObjects() {
-//        TemplateParse templateParse = new TemplateParse();
-//        List<Segment> segments = templateParse.parseSegments("a ${b} c ${d}");
-//        assertSegments(segments,
-//                new PlainText("a "), new Variable("b"),
-//                new PlainText(" c "), new Variable("d"));
-//    }
+    @Test
+    public void parsingTemplateIntoSegmentObjects() {
+        TemplateParse templateParse = new TemplateParse();
+        List<Segment> segments = templateParse.parseSegments("a ${b} c ${d}");
+        assertSegments(segments,
+                new PlainText("a "), new Variable("b"),
+                new PlainText(" c "), new Variable("d"));
+    }
     
     private List<String> parse(String template) {
         return new TemplateParse().parse(template);
