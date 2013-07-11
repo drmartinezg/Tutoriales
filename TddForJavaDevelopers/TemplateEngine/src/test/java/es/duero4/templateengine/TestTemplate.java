@@ -67,7 +67,6 @@ public class TestTemplate {
         new Template("${foo}").evaluate();
     }
     
-    @Ignore
     @Test
     public void variablesGetProcessedJustOnce() {
         template.set("one", "${one}");
