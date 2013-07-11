@@ -1,5 +1,7 @@
 package es.duero4.templateengine;
 
+import java.util.Map;
+
 /**
  *
  * @author Ramon
@@ -14,6 +16,11 @@ public class PlainText implements Segment {
     @Override
     public boolean equals(Object other) {
         return text.equals(((PlainText) other).text);
+    }
+
+    @Override
+    public String evaluate(Map<String, String> variables) {
+        return text;
     }
     
 }
