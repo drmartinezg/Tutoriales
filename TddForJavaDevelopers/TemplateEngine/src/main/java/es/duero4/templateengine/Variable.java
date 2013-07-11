@@ -1,6 +1,7 @@
 package es.duero4.templateengine;
 
 import es.duero4.templateengine.Segment;
+import java.util.Map;
 
 /**
  *
@@ -16,5 +17,10 @@ public class Variable implements Segment {
     @Override
     public boolean equals(Object other) {
         return name.equals(((Variable) other).name);
+    }
+
+    @Override
+    public String evaluate(Map<String, String> variables) {
+        return variables.get(name);
     }
 }
