@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Ramon
  */
-class Template {
+public class Template {
     private Map<String, String> variables;
     private final String templateText;
 
@@ -43,7 +43,7 @@ class Template {
         }
     }
 
-    private boolean isVariable(String segment) {
+    public static boolean isVariable(String segment) {
         return segment.startsWith("${") && segment.endsWith("}");
     }
     
