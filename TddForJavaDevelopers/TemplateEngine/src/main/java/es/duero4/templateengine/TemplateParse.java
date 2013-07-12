@@ -1,7 +1,6 @@
 package es.duero4.templateengine;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
