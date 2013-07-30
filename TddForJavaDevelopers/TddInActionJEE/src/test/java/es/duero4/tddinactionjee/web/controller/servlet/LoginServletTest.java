@@ -48,4 +48,16 @@ public class LoginServletTest {
         servlet.service(request, response);
         assertEquals("/invalidlogin", response.getRedirectedUrl());
     }
+    
+    @Test
+    public void validLoginForwardsToFrontPageAndStoresUsername() throws Exception {
+        LoginServlet servlet = new LoginServlet();
+        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/login");
+        request.addParameter("j_username", "validuser");
+        request.addParameter("j_password", "correctpassword");
+        MockHttpServletResponse response = new MockHttpServletResponse();
+        servlet.service(request, response);
+        assertEquals("/frontpage", response.getRedirectedUrl());
+        assertEquals("validuser", request.getSession().getAttribute("username"));
+    }
 }
