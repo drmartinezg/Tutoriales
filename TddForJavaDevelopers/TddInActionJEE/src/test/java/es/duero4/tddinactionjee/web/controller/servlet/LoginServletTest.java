@@ -18,6 +18,14 @@ import static org.junit.Assert.*;
  * @author Ramon
  */
 public class LoginServletTest {
+    private static final String CORRECT_PASSWORD = "correctpassword";
+    private static final String VALID_USERNAME = "validuser";
+    
+    // By moving common objects into fields
+    private LoginServlet servlet;
+    private FakeAuthenticationService authenticator;
+    private MockHttpServletRequest request;
+    private MockHttpServletResponse response;
     
     public LoginServletTest() {
     }
@@ -32,6 +40,19 @@ public class LoginServletTest {
     
     @Before
     public void setUp() {
+        authenticator = new FakeAuthenticationService();
+        authenticator.addUser(VALID_USERNAME, CORRECT_PASSWORD);
+
+        servlet = new LoginServlet() {
+            // Use fake instead of real thing
+            @Override
+            protected AuthenticationService getAuthenticationService() {
+                return authenticator;
+            }
+        };
+        
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
     }
     
     @After
@@ -40,41 +61,19 @@ public class LoginServletTest {
     
     @Test
     public void wrongPasswordShouldRedirectToErrorPage() throws Exception {
-        HttpServlet servlet = new LoginServlet();
-        // Create fake request object ...
-        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/login");
-        request.addParameter("j_username", "nosuchuser");
+        request.addParameter("j_username", VALID_USERNAME);
         request.addParameter("j_password", "wrongpassword");
-        // ... and fake response object
-        MockHttpServletResponse response = new MockHttpServletResponse();
         servlet.service(request, response);
         assertEquals("/invalidlogin", response.getRedirectedUrl());
     }
     
     @Test
     public void validLoginForwardsToFrontPageAndStoresUsername() throws Exception {
-        final String validUsername = "validuser";
-        final String validPassword = "validpassword";
-        
-        // Configure fake AuthenticationService
-        final FakeAuthenticationService authenticator = new FakeAuthenticationService();
-        authenticator.addUser(validUsername, validPassword);
-        
-        LoginServlet servlet = new LoginServlet() {
-            // Use fake instead of real thing
-            @Override
-            protected AuthenticationService getAuthenticationService() {
-                return authenticator;
-            }
-        };
-        
-        MockHttpServletRequest request = new MockHttpServletRequest("GET", "/login");
-        request.addParameter("j_username", validUsername);
-        request.addParameter("j_password", validPassword);
-        MockHttpServletResponse response = new MockHttpServletResponse();
+        request.addParameter("j_username", VALID_USERNAME);
+        request.addParameter("j_password", CORRECT_PASSWORD);
         
         servlet.service(request, response);
         assertEquals("/frontpage", response.getRedirectedUrl());
-        assertEquals(validUsername, request.getSession().getAttribute("username"));
+        assertEquals(VALID_USERNAME, request.getSession().getAttribute("username"));
     }
 }
