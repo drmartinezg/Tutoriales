@@ -1,5 +1,7 @@
 package es.duero4.tddinactionjee.web.controller.servlet;
 
+import es.duero4.tddinactionjee.web.controller.authenticator.AuthenticationService;
+import es.duero4.tddinactionjee.web.controller.authenticator.FakeAuthenticationService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import org.junit.After;
@@ -51,13 +53,28 @@ public class LoginServletTest {
     
     @Test
     public void validLoginForwardsToFrontPageAndStoresUsername() throws Exception {
-        LoginServlet servlet = new LoginServlet();
+        final String validUsername = "validuser";
+        final String validPassword = "validpassword";
+        
+        // Configure fake AuthenticationService
+        final FakeAuthenticationService authenticator = new FakeAuthenticationService();
+        authenticator.addUser(validUsername, validPassword);
+        
+        LoginServlet servlet = new LoginServlet() {
+            // Use fake instead of real thing
+            @Override
+            protected AuthenticationService getAuthenticationService() {
+                return authenticator;
+            }
+        };
+        
         MockHttpServletRequest request = new MockHttpServletRequest("GET", "/login");
-        request.addParameter("j_username", "validuser");
-        request.addParameter("j_password", "correctpassword");
+        request.addParameter("j_username", validUsername);
+        request.addParameter("j_password", validPassword);
         MockHttpServletResponse response = new MockHttpServletResponse();
+        
         servlet.service(request, response);
         assertEquals("/frontpage", response.getRedirectedUrl());
-        assertEquals("validuser", request.getSession().getAttribute("username"));
+        assertEquals(validUsername, request.getSession().getAttribute("username"));
     }
 }
