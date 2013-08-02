@@ -20,6 +20,10 @@ public class LoginControllerTest {
     private static final String CORRECT_PASSWORD = "correctpassword";
     private static final String VALID_USERNAME = "validuser";
     
+    MockHttpServletRequest request;
+    MockHttpServletResponse response;
+    LoginController controller;
+    
     public LoginControllerTest() {
     }
 
@@ -33,6 +37,15 @@ public class LoginControllerTest {
     
     @Before
     public void setUp() {
+        request = new MockHttpServletRequest();
+        response = new MockHttpServletResponse();
+        controller = new LoginController();
+        
+        FakeAuthenticationService mock = new FakeAuthenticationService();
+        mock.addUser(VALID_USERNAME, CORRECT_PASSWORD);
+        // Simulate dependency injection
+        controller.setAuthenticationService(mock);
+        
     }
     
     @After
@@ -42,14 +55,11 @@ public class LoginControllerTest {
     @Test
     public void wrongPasswordShouldRedirectToErrorPage() throws Exception {
         // 1 - Populate mock objects
-        MockHttpServletRequest request = new MockHttpServletRequest();
         request.addParameter("j_username", "nosuchusername");
         request.addParameter("j_password", "nosuchpassword");
-        MockHttpServletResponse response = new MockHttpServletResponse();
         
         // 2 - Invoke Controller's handleRequest() method
-        Controller c = new LoginController();
-        ModelAndView v = c.handleRequest(request, response);
+        ModelAndView v = controller.handleRequest(request, response);
         
         // 3 - User should land on "wrong password" page
         assertEquals("wrongpassword", v.getViewName());
@@ -57,19 +67,11 @@ public class LoginControllerTest {
     
     @Test
     public void validLoginFrowardsToFrontPage() throws Exception {
-        MockHttpServletRequest request = new MockHttpServletRequest();
         request.setMethod("GET");
         request.addParameter("j_username", VALID_USERNAME);
         request.addParameter("j_password", CORRECT_PASSWORD);
-        MockHttpServletResponse response = new MockHttpServletResponse();
         
-        FakeAuthenticationService mock = new FakeAuthenticationService();
-        mock.addUser(VALID_USERNAME, CORRECT_PASSWORD);
-        
-        LoginController c = new LoginController();
-        // Simulate dependency injection
-        c.setAuthenticationService(mock);
-        ModelAndView v = c.handleRequest(request, response);
+        ModelAndView v = controller.handleRequest(request, response);
         
         assertEquals("frontpage", v.getViewName());
     }
