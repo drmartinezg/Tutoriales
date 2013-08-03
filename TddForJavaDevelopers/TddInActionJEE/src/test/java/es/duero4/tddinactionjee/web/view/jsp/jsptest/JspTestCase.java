@@ -10,6 +10,6 @@ public abstract class JspTestCase extends HtmlTestCase {
 
     @Override
     protected String getWebRoot() {
-        return "./src/test/resources/jsp";
+        return "./src/test/resources/websrc/jsp";
     }
 }
