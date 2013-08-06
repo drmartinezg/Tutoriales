@@ -1,18 +1,25 @@
 package es.duero4.tddinactionjee.web.view.jsp.velocity;
 
+import static org.junit.Assert.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringWriter;
 
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -48,7 +55,25 @@ public abstract class VelocityTestCase {
         // 3. Render template in memory
         String renderedHtml = renderTemplate(template);
         // 4. Parse rendered HTML into DOM tree
-        this.document = parseAsXml(renderedHtml);
+        this.document = parseXml(renderedHtml);
+    }
+
+    private String renderTemplate(String template) {
+        VelocityEngine engine = new VelocityEngine();
+        engine.init();
+        StringWriter writer = new StringWriter();
+        engine.evaluate(context, writer, "test", template);
+        return writer.toString();
+    }
+
+    private Document parseHtml(String html) throws Exception {
+        return parseXml(html);
+    }
+    
+    private Document parseXml(String xml) throws Exception {
+        DocumentBuilder b = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        return b.parse(new ByteArrayInputStream(xml.getBytes()));
+        
     }
 
     private String readFileContent(File file) throws Exception {
@@ -61,20 +86,62 @@ public abstract class VelocityTestCase {
         }
         reader.close();
         return String.valueOf(writer);
-        
+    }    
+    
+    protected void assertFormFieldPresent(String name) throws Exception {
+        assertNodeExists(xpathForField(name));
+    }
+    
+    protected void assertFormSubmitButtonPresent(String name) throws Exception {
+        assertNodeExists("//form//input[@type='submit' and @name='" + name + "']");
     }
 
-    private String renderTemplate(String template) {
-        VelocityEngine engine = new VelocityEngine();
-        engine.init();
-        StringWriter writer = new StringWriter();
-        engine.evaluate(context, writer, "test", template);
-        return writer.toString();
+
+    protected void assertFormFieldValue(String name, String expectedValue) throws Exception {
+        String xpath = xpathForField(name);
+        assertFormFieldPresent(name);
+        String actual = getString(xpath + "/@value");
+        assertEquals(expectedValue, actual);
     }
 
-    private Document parseAsXml(String xml) throws Exception {
-        DocumentBuilder b = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        return b.parse(new ByteArrayInputStream(xml.getBytes()));
-        
+    private String xpathForField(String name) {
+        return "//form//input[@name='" + name + "']";
     }
+
+    private void assertNodeExists(String xpath) throws Exception {
+        assertNotNull("Node doesn't exist; " + xpath, getNode(xpath));
+    }
+    
+    private Node getNode(String xpath) throws Exception {
+        return (Node) evaluate(xpath, XPathConstants.NODE);
+    }
+
+    private String getString(String xpath) throws Exception {
+        return (String) evaluate(xpath, XPathConstants.STRING);
+    }
+    
+    private Object evaluate(String xpath, QName type) throws Exception {
+        XPath engine = XPathFactory.newInstance().newXPath();
+        return engine.evaluate(xpath, getResponse(), type);
+    }
+
+    protected void assertTextPresent(String text) throws Exception {
+        StringBuilder buffer = new StringBuilder(10000);
+        collectTextContent(document, buffer);
+        assertTrue("Text not found on page: " + text, buffer
+                .toString().contains(text));
+    }
+
+    private void collectTextContent(Node node, StringBuilder buffer) {
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            Node child = children.item(i);
+            if (child.getNodeType() == Node.TEXT_NODE) {
+                buffer.append(child.getNodeValue());
+            } else if (child.getNodeType() == Node.ELEMENT_NODE) {
+                collectTextContent(child, buffer);
+            }
+        }
+    }
+    
 }
