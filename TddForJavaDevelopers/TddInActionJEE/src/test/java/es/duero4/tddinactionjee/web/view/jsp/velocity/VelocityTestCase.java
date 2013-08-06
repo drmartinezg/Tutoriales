@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.StringWriter;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.junit.Before;
@@ -29,6 +31,10 @@ public abstract class VelocityTestCase {
     
     protected String getWebRoot() {
         return ".";
+    }
+    
+    protected Document getResponse() {
+        return document;
     }
     
     protected void setAttribute(String name, Object value) {
