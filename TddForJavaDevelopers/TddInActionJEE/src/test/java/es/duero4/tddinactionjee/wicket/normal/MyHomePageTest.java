@@ -6,6 +6,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import sun.security.jgss.LoginConfigImpl;
 import static org.junit.Assert.*;
 
 /**
@@ -35,15 +36,15 @@ public class MyHomePageTest {
     
     @Test
     public void homePageHasWellcomeText() throws Exception {
-        // 1 - Create WicketTester for page
         WicketTester tester = new WicketTester();
         tester.startPage(MyHomePage.class);
         
-        // 2 - Check for rending errors
         tester.assertRenderedPage(MyHomePage.class);
         tester.assertNoErrorMessage();
         
-        // 3 - Assert page contents
-        tester.assertContains("Wellcome to the home page!");
+        // 1 - Expect to find named "welcomeMessage"...
+        tester.assertLabel("welcomeMessage", "Welcome to the home page!");
+        // 2 - ... and link to login page
+        tester.assertPageLink("linkToLoginPage", LoginPage.class);
     }
 }
