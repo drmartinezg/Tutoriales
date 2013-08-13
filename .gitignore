@@ -2,3 +2,5 @@
 target
 # Ignora los archivos compilados
 *.class
+# Ignora los ficheros log
+*.log
