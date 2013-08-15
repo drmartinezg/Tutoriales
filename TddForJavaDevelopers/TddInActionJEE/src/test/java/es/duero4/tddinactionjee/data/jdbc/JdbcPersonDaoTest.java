@@ -49,9 +49,9 @@ public class JdbcPersonDaoTest {
     @Test
     public void testFindByLastName() throws Exception {
         // 1 - Mock database connectin
-        DataSource dataSource = createMock(DataSource.class);
+        DataSource datasource = createMock(DataSource.class);
         Connection connection = createMock(Connection.class);
-        expect(dataSource.getConnection()).andReturn(connection);
+        expect(datasource.getConnection()).andReturn(connection);
         String sql = "SELECT * FROM people WHERE last_name = ?";
         PreparedStatement stmt = createMock(PreparedStatement.class);
         expect(connection.prepareStatement(sql)).andReturn(stmt);
@@ -70,14 +70,14 @@ public class JdbcPersonDaoTest {
         stmt.close();
         connection.close();
         
-        replay(dataSource, connection, stmt);
+        replay(datasource, connection, stmt);
         
         // 4 - Act and verify
         JdbcPersonDao dao = new JdbcPersonDao();
         dao.setDataSource(datasource);
         List<Person> people = dao.findByLastname("Smith");
         assertEquals(smiths, people);
-        verify(dataSource, connection, stmt);
+        verify(datasource, connection, stmt);
         resultset.verify();;
     }
 
