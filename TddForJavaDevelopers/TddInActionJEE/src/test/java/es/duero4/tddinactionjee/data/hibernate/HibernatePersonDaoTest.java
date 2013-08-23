@@ -71,4 +71,31 @@ public class HibernatePersonDaoTest {
         
         verify(factory, session, query);
     }
+    
+    @Test
+    public void testFindByLastnameReturnEmptyListUponException() throws Exception {
+        String hql = "from Person p where p.lastname = :lastname";
+        String name = "Smith";
+        HibernateException hibernateError = new HibernateException("");
+        
+        expect( factory.getCurrentSession() ).andReturn(session);
+        expect( session.createQuery(hql) ).andReturn(query);
+        expect( query.setParameter("lastname", name) ).andReturn(query);
+        // Make list() throw exception
+        expect( query.list() ).andThrow(hibernateError);
+        
+        replay(factory, session, query);
+        
+        HibernatePersonDao dao = new HibernatePersonDao();
+        dao.setSessionFactory(factory);
+        try {
+            // findByLastname wraps HibernateException into RuntimeException
+            dao.findByLastname(name);
+            fail("should've thrown an exception");
+        } catch (RuntimeException expected) {
+            assertSame(hibernateError.getCause(), expected.getCause());
+        }
+        
+        verify(factory, session, query);
+    }
 }
