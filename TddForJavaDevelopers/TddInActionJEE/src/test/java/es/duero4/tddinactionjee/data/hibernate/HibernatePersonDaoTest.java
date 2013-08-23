@@ -55,9 +55,20 @@ public class HibernatePersonDaoTest {
         theSmiths.add(new Person("Billy", lastname));
         theSmiths.add(new Person("Clark", lastname));
         
+        // Record expected API calls.
         expect( factory.getCurrentSession() ).andReturn(session);
         expect( session.createQuery(hql) ).andReturn(query);
         expect( query.setParameter("lastname", lastname) ).andReturn(query);
         expect( query.list() ).andReturn(theSmiths);
+        
+        replay(factory, session, query);
+        
+        HibernatePersonDao dao = new HibernatePersonDao();
+        // Inject SessionFactory with setter.
+        dao.setSessionFactory(factory);
+        // Expect finder method to return hard-coded list
+        assertEquals(theSmiths, dao.findByLastname(lastname));
+        
+        verify(factory, session, query);
     }
 }
