@@ -55,5 +55,9 @@ public class HibernatePersonDaoTest {
         theSmiths.add(new Person("Billy", lastname));
         theSmiths.add(new Person("Clark", lastname));
         
+        expect( factory.getCurrentSession() ).andReturn(session);
+        expect( session.createQuery(hql) ).andReturn(query);
+        expect( query.setParameter("lastname", lastname) ).andReturn(query);
+        expect( query.list() ).andReturn(theSmiths);
     }
 }
