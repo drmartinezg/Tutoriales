@@ -3,6 +3,7 @@ package es.duero4.tddinactionjee.data.hibernate;
 import es.duero4.tddinactionjee.data.PersonDao;
 import es.duero4.tddinactionjee.data.person.Person;
 import java.util.List;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
@@ -22,14 +23,18 @@ class HibernatePersonDao implements PersonDao {
 
     @Override
     public List<Person> findByLastname(String lastname) {
-        // 2 - Get Session
-        Session session = sessionFactory.getCurrentSession();
-        String hql = "from Person p where p.lastname = :lastname";
-        // 3 - Create Query
-        Query query = session.createQuery(hql);
-        // 4 - Populate Query
-        query.setParameter("lastname", lastname);
-        return query.list();
+        try {
+            // 2 - Get Session
+            Session session = sessionFactory.getCurrentSession();
+            String hql = "from Person p where p.lastname = :lastname";
+            // 3 - Create Query
+            Query query = session.createQuery(hql);
+            // 4 - Populate Query
+            query.setParameter("lastname", lastname);
+            return query.list();
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
+        }
     }
     
     @Override

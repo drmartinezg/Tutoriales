@@ -93,7 +93,7 @@ public class HibernatePersonDaoTest {
             dao.findByLastname(name);
             fail("should've thrown an exception");
         } catch (RuntimeException expected) {
-            assertSame(hibernateError.getCause(), expected.getCause());
+            assertSame(hibernateError, expected.getCause());
         }
         
         verify(factory, session, query);
