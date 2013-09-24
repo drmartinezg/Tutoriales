@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.classic.Session;
 
 /**
@@ -54,9 +55,12 @@ class HibernatePersonDao implements PersonDao {
 
     @Override
     public void save(Person person) {
+        // 2 - Obtain existing session, if applicable
         Session session = sessionFactory.getCurrentSession();
+        // 3 - Persist Person within transaction
+        Transaction tx = session.beginTransaction();
         session.save(person);
-        session.flush();
+        tx.commit();
     }
 
     @Override
