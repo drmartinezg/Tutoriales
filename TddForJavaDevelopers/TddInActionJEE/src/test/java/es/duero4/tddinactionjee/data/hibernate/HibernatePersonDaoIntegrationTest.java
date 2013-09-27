@@ -1,5 +1,6 @@
 package es.duero4.tddinactionjee.data.hibernate;
 
+import org.hibernate.Transaction;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -20,6 +21,10 @@ import static org.junit.Assert.*;
  */
 public class HibernatePersonDaoIntegrationTest {
     
+    private SessionFactory sf;
+    private Transaction tx;
+    private HibernatePersonDao dao;
+    
     public HibernatePersonDaoIntegrationTest() {
     }
 
@@ -32,26 +37,30 @@ public class HibernatePersonDaoIntegrationTest {
     }
     
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
+        sf = getSessionFactory();
+        dao = new HibernatePersonDao();
+        dao.setSessionFactory(sf);    
+        // 1 - Begin transaction in setup
+        tx = sf.getCurrentSession().beginTransaction();
+        tx.begin();
     }
     
     @After
     public void tearDown() {
+        // 2 - Rollback in teardown
+        tx.rollback();
     }
     
     @Test
     public void persistedObjectExistsInDatabase() throws Exception {
-        // 1 - Create SessionFactory that knows about Person class
-        SessionFactory sf = getSessionFactory();
-        HibernatePersonDao dao = new HibernatePersonDao();
-        dao.setSessionFactory(sf);
-        
+
         Person person = new Person("John", "Doe");
         dao.save(person);
-        // 2 - Persisted object receives ID
+        // Persisted object receives ID
         assertNotNull(person.getId());
         
-        // 3 - John Doe now in database
+        // John Doe now in database
         Session s = sf.openSession();
         Object copy = s.get(Person.class, person.getId());
         assertEquals(person, copy);
@@ -61,27 +70,27 @@ public class HibernatePersonDaoIntegrationTest {
         return createConfiguration().buildSessionFactory();
     }
 
-    private Configuration createConfiguration() throws Excepton {
-        // 1 - Load production config from classpath.
+    private Configuration createConfiguration() throws Exception {
+        // Load production config from classpath.
         Configuration cfg = loadProductionConfiguration();
-        // 2 - Load test config from file
+        // Load test config from file
         loadTestConfigInto(cfg, "/hibernate.test.properties");
         return cfg;
     }
 
     private Configuration loadProductionConfiguration() {
-        // 1 - Load production config from classpath.
+        // Load production config from classpath.
         return new Configuration().configure();
     }
 
     private void loadTestConfigInto(Configuration cfg, String path) throws Exception {
-        // 2 - Load test config from file
+        // Load test config from file
         Properties properties = loadPropertiesFrom(path);
         Enumeration keys = properties.keys();
         while (keys.hasMoreElements()) {            
             String key = (String) keys.nextElement();
             String value = properties.getProperty(key);
-            // 3 - Override individual properties
+            // Override individual properties
             cfg.setProperty(key, value);
         }
     }
