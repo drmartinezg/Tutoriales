@@ -1,5 +1,6 @@
 package es.duero4.tddinactionjee.data.hibernate;
 
+import java.util.List;
 import org.hibernate.Transaction;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -8,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.classic.Session;
 import org.hibernate.SessionFactory;
 import es.duero4.tddinactionjee.data.person.Person;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -49,7 +51,9 @@ public class HibernatePersonDaoIntegrationTest {
     @After
     public void tearDown() {
         // 2 - Rollback in teardown
-        tx.rollback();
+        if (tx != null) {
+            tx.rollback();
+        }
     }
     
     @Test
@@ -66,6 +70,30 @@ public class HibernatePersonDaoIntegrationTest {
         assertEquals(person, copy);
     }
 
+    @Test
+    public void testFindingAllSmiths() throws Exception {
+        // 1 - Create objects
+        List<Person> theSmiths = new ArrayList<Person>();
+        theSmiths.add(new Person("Alice", "Smith"));
+        theSmiths.add(new Person("Billy", "Smith"));
+        
+        List<Person> allPeople = new ArrayList<Person>();
+        allPeople.addAll(theSmiths);
+        allPeople.add(new Person("John", "Doe"));
+        
+        // 2 - Persist objects with Hibernate API
+        persist(allPeople);
+        assertEquals(theSmiths, dao.findByLastname("Smith"));
+    }
+
+    private void persist(List<? extends Object> objects) {
+        Session s = sf.getCurrentSession();
+        for (Object object : objects) {
+            s.save(object);
+        }
+        s.flush();
+    }
+    
     private SessionFactory getSessionFactory() throws Exception {
         return createConfiguration().buildSessionFactory();
     }
@@ -103,4 +131,5 @@ public class HibernatePersonDaoIntegrationTest {
         stream.close();
         return props;
     }
+
 }
