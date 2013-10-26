@@ -1,5 +1,6 @@
 package es.duero4.tddinactionjee.data.hibernate;
 
+import org.junit.Ignore;
 import java.util.List;
 import org.hibernate.Transaction;
 import java.io.InputStream;
@@ -56,6 +57,7 @@ public class HibernatePersonDaoIntegrationTest {
         }
     }
     
+    @Ignore
     @Test
     public void persistedObjectExistsInDatabase() throws Exception {
 
@@ -70,6 +72,7 @@ public class HibernatePersonDaoIntegrationTest {
         assertEquals(person, copy);
     }
 
+    @Ignore
     @Test
     public void testFindingAllSmiths() throws Exception {
         // 1 - Create objects
