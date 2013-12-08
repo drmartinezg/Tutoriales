@@ -1,5 +1,8 @@
 package es.duero4.tddinactionjee.time.logging;
 
+import es.duero4.tddinactionjee.time.abstraction.SystemTime;
+import es.duero4.tddinactionjee.time.abstraction.TimeSource;
+import java.text.DateFormat;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -34,12 +37,27 @@ public class HttpRequestLogFormatterTest {
     
     @After
     public void tearDown() {
+        // 1 - Dont't leave residue
+        SystemTime.reset();
     }
     
     @Test
     public void testCommonLogFormat() throws Exception {
-        String expected = "1.2.3.4 - rmg [16/Oct/2013 20:21:22 +0100] " +
-                          "\"GET /ctx/resource HTTP/1.1\" 200 2326";
+        // 2 - Configure fixed time
+        final long time = SystemTime.asMillis();
+        SystemTime.setTimeSource(new TimeSource() {
+            @Override
+            public long millis() {
+                return time;
+            }
+        });
+        
+        // 3 - Build expected output based on fixed time
+        DateFormat dateFormat = HttpRequestLogFormatter.dateFormat;
+        String timestamp = dateFormat.format(SystemTime.asDate());
+        String expected = "1.2.3.4 - rmg [" + timestamp + 
+                          "] \"GET /ctx/resource HTTP/1.1\" 200 2326";
+        
         HttpServletRequest request = createMock(HttpServletRequest.class);
         expect(request.getRemoteAddr()).andReturn("1.2.3.4");
         expect(request.getRemoteUser()).andReturn("rmg");
@@ -48,7 +66,7 @@ public class HttpRequestLogFormatterTest {
         expect(request.getProtocol()).andReturn("HTTP/1.1");
         replay(request);
         
-//        HttpRequestLogFormatter formatter = new HttpRequestLogFormatter();
-//        assertEquals(expected, formatter.format(request, 200, 2326));
+        HttpRequestLogFormatter formatter = new HttpRequestLogFormatter();
+        assertEquals(expected, formatter.format(request, 200, 2326));
     }
 }
