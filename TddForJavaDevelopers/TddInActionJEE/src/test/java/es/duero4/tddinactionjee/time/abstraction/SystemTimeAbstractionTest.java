@@ -29,7 +29,23 @@ public class SystemTimeAbstractionTest {
     }
     
     @After
-    public void tearDown() {
+    public void resetTimeSource() {
+        // 1 - Reset default TimeSource after each test
+        SystemTime.reset();
+    }
+    
+    @Test
+    public void clockReturnsFakedTimeInMilliseconds() throws Exception {
+        final long fakeTime = 12345690L;
+        // 2 - Swap in fixed time source
+        SystemTime.setTimeSource(new TimeSource() {
+            public long millis() {
+                return fakeTime;
+            }
+        });
+        long clock = SystemTime.asMillis();
+        // 3 - SystemTime should use our TimeSource
+        assertEquals("Should return fake time", fakeTime, clock);
     }
     
     @Test
