@@ -39,6 +39,7 @@ public class SystemTimeAbstractionTest {
         final long fakeTime = 12345690L;
         // 2 - Swap in fixed time source
         SystemTime.setTimeSource(new TimeSource() {
+            @Override
             public long millis() {
                 return fakeTime;
             }
