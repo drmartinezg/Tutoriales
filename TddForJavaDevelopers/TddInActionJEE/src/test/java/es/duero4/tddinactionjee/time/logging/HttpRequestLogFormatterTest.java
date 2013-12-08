@@ -3,6 +3,7 @@ package es.duero4.tddinactionjee.time.logging;
 import es.duero4.tddinactionjee.time.abstraction.SystemTime;
 import es.duero4.tddinactionjee.time.abstraction.TimeSource;
 import java.text.DateFormat;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -68,5 +69,17 @@ public class HttpRequestLogFormatterTest {
         
         HttpRequestLogFormatter formatter = new HttpRequestLogFormatter();
         assertEquals(expected, formatter.format(request, 200, 2326));
+    }
+    
+    @Test
+    public void testTimestampFormat() throws Exception {
+        String date = "\\d{2}/\\w{3}/\\d{4}";
+        String time = "\\d{2}:\\d{2}:\\d{2}";
+        String timezone = "(-|\\+)\\d{4}";
+        String regex = date + ":" + time + " " + timezone;
+        
+        DateFormat dateFormat = HttpRequestLogFormatter.dateFormat;
+        String timestamp = dateFormat.format(new Date());
+        assertTrue("DateFormat should be \"dd/mon/yyyy:HH:mm:ss Z\"", timestamp.matches(regex));
     }
 }
