@@ -41,4 +41,29 @@ public class ThreadSafetyTest {
         counter.increment();
         assertEquals(2, counter.value());
     }
+    
+    @Test
+    public void testForThreadSafety() throws Exception {
+        final Counter codeUnderTest = new Counter();
+        final int numberOfThreads = 20;
+        final int incrementsPerThread = 100;
+        
+        Runnable runnable = new Runnable() {
+           @Override
+            public void run() {
+                for (int i = 0; i < incrementsPerThread; i++) {
+                   codeUnderTest.increment();
+               }
+            }
+        };
+        
+        // 1 - Start threads
+        for (int i = 0; i < numberOfThreads; i++) {
+            new Thread(runnable).start();
+        }
+        
+        // 2 - Wait for threads to finish and assert counter's value
+        Thread.sleep(500);
+        assertEquals(numberOfThreads * incrementsPerThread, codeUnderTest.value());
+    }
 }
