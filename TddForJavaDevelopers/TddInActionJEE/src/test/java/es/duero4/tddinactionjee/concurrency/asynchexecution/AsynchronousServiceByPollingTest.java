@@ -40,4 +40,18 @@ public class AsynchronousServiceByPollingTest {
         Thread.sleep(2000);
         Assert.assertEquals(42, (int) calc.getResult());
     }
+    
+    @Test
+    public void testByRetryingTheAssertOften() throws Exception {
+        final LongLastingCalculation calc = new LongLastingCalculation();
+        calc.start();
+        // 1 - Specify suitable timeout and retry interval
+        new RetriedAssert(2000, 100) {
+            // 2 - Override abstract run() method
+            @Override
+            public void run() {
+                assertEquals(42, (int) calc.getResult());
+            }
+        }.start();
+    }
 }

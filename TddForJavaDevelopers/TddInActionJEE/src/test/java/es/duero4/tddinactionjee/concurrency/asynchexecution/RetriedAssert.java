@@ -1,16 +1,19 @@
 package es.duero4.tddinactionjee.concurrency.asynchexecution;
 
 /**
- * This class allows you to assert a condition that may not be true right al the
- * moment, butshould become true within a specified time frame. To use it,
+ * This class allows you to assert a condition that may not be true right at the
+ * moment, but should become true within a specified time frame. To use it,
  * simple replace calls like:
  * 
  * assert(someCondition);
  * 
  * With:
  * 
- * new RetriedAssert(5000, 250) { // timeout, interval public void run() throws
- * Exception { assert(someCondition); } }.start();
+ * new RetriedAssert(5000, 250) { // timeout, interval 
+ *   public void run() throws Exception { 
+ *     assert(someCondition);
+ *   }
+ * }.start();
  * 
  * The start() and run() methods were named after those in java.lang.Thread,
  * whose function they mimic.
@@ -32,13 +35,16 @@ public abstract class RetriedAssert {
     
     public final void start() throws Exception {
         long stopAt = System.currentTimeMillis() + _timeOutMs;
+        // 1 - Loop until we reach configured timeout
         while (System.currentTimeMillis() < stopAt) {            
             try {
+                // 2 - Attempt assertion and  return if it passes
                 run();
                 return;
             } catch (AssertionError ignoreAndRetry) {
             }
             try {
+                // 3 - Sleep before retrying assertion
                 Thread.sleep(_intervalMs);
             } catch (InterruptedException e) {
             }
