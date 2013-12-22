@@ -4,12 +4,13 @@ import es.duero4.tddinactionjee.swing.mvp.common.GreenBarModel;
 import es.duero4.tddinactionjee.swing.mvp.common.GreenBarView;
 import es.duero4.tddinactionjee.swing.mvp.common.RunButtonListener;
 import java.awt.Color;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Ramon
  */
-public class GreenBarViewImpl implements GreenBarView {
+public class GreenBarViewImpl extends JPanel implements GreenBarView {
 
     public GreenBarViewImpl() {
     }

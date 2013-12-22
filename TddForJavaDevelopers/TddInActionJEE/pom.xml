@@ -132,7 +132,20 @@
         <artifactId>hsqldb</artifactId>
         <version>1.8.0.10</version>
     </dependency>
-        
+    <dependency>
+        <groupId>org.netbeans.api</groupId>
+        <artifactId>org-netbeans-modules-jemmy</artifactId>
+        <version>RELEASE74</version>
+      <scope>test</scope>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.netbeans.api</groupId>
+      <artifactId>org-netbeans-modules-jemmy</artifactId>
+      <version>RELEASE65</version>
+      <scope>test</scope>
+      <type>jar</type>
+    </dependency>
   </dependencies>
 
   <build>
