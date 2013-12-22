@@ -13,7 +13,7 @@ public class GreenBarSupervisingController {
     private final GreenBarModel model;
     private final GreenBarView view;
 
-    public GreenBarSupervisingController(final GreenBarView view, final GreenBarModel model) {
+    public GreenBarSupervisingController(final GreenBarObservingView view, final GreenBarModel model) {
         this.view = view;
         this.model = model;
         // 1 - Register for user gestures.

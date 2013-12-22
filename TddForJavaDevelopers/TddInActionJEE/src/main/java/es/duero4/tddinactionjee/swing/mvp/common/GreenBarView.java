@@ -10,8 +10,6 @@ public interface GreenBarView {
 
     public void addRunButtonListener(RunButtonListener listener);
 
-    public void update(GreenBarModel model);
-
     public void setBarColor(Color newColor);
     
 }
