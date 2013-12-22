@@ -21,7 +21,7 @@ public class GreenBarSupervisingController {
             @Override
             public void onRunButtonClick() {
                 // 2 - Operate on model objects.
-                model.runTest();
+                model.runTests();
                 // 3 - Tell view to update itself.
                 updateView();
             }

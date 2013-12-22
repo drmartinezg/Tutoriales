@@ -6,6 +6,8 @@ package es.duero4.tddinactionjee.swing.mvp.common;
  */
 public interface GreenBarModel {
 
-    public void runTest();
+    public void runTests();
+
+    public int numberOfFailures();
     
 }
