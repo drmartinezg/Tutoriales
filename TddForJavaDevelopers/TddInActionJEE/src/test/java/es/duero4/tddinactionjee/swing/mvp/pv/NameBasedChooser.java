@@ -9,17 +9,21 @@ import org.netbeans.jemmy.ComponentChooser;
  */
 public class NameBasedChooser implements ComponentChooser {
 
-    public NameBasedChooser(String bar) {
+    private final String name;
+    
+    public NameBasedChooser(String name) {
+        this.name = name;
     }
 
     @Override
-    public boolean checkComponent(Component cmpnt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean checkComponent(Component component) {
+        // Identify desired component by name
+        return name.equals(component.getName());
     }
 
     @Override
     public String getDescription() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return "Component name '" + name + "'";
     }
     
 }
