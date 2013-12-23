@@ -146,6 +146,12 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
+    <dependency>
+        <groupId>abbot</groupId>
+        <artifactId>abbot</artifactId>
+        <version>0.13.0</version>
+    </dependency>
+    
   </dependencies>
 
   <build>

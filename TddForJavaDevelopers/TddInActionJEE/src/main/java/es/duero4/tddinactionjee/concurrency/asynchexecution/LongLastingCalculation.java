@@ -5,7 +5,7 @@ package es.duero4.tddinactionjee.concurrency.asynchexecution;
  * @author Ramon
  */
 public class LongLastingCalculation {
-    private volatile Integer result;
+    private volatile Integer result = 0;
 
     public Integer getResult() {
         return result;
