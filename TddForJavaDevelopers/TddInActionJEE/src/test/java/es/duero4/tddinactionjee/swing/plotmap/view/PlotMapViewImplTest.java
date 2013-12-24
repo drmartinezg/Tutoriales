@@ -60,7 +60,7 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
         typeIntoTextField("x_coord_textfield", "" + point.x);
         typeIntoTextField("y_coord_textfield", "" + point.y);
         tester.actionClick(namedComponent("add_button"));
-        
+        assertEquals(point, addedPoint);
     }
 
     private void typeIntoTextField(String name, String value) throws Exception {
