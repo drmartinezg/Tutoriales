@@ -1,6 +1,9 @@
 package es.duero4.tddinactionjee.swing.plotmap.view;
 
 import es.duero4.tddinactionjee.swing.plotmap.model.PlotMapModel;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,16 +14,40 @@ import javax.swing.JTextField;
  */
 public class PlotMapViewImpl extends JPanel implements PlotMapView {
 
+    // View has listener for addition events
+    private PlotAdditionListener additionListener;
+    private JTextField xCoordField, yCoordField;
+    private JButton addButton;
+
     public PlotMapViewImpl() {
-        add(createTextField("x_coord_textfield"));
-        add(createTextField("y_coord_textfield"));
-        JButton addButton = new JButton();
-        addButton.setName("add_button");
+        createWidgets();
+        add(xCoordField);
+        add(yCoordField);
         add(addButton);
     }
-        
+
+    private JButton createWidgets() {
+        xCoordField = createTextField("x_coord_textfield");
+        yCoordField = createTextField("y_coord_textfield");
+        addButton = new JButton();
+        addButton.setName("add_button");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int x = valueAsInt(xCoordField);
+                int y = valueAsInt(yCoordField);
+                // Button triggers events to registered listener
+                additionListener.plotWasAdded(new Point(x, y));
+            }
+
+        });
+        return addButton;
+    }
+
     @Override
-    public void registerAddtionListener(PlotAdditionListener listener) {
+    public void registerAdditionListener(PlotAdditionListener listener) {
+        // Register listener for addition events
+        this.additionListener = listener;
     }
 
     @Override
@@ -35,6 +62,10 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
         JTextField field = new JTextField();
         field.setName(name);
         return field;
+    }
+
+    private int valueAsInt(JTextField field) {
+        return Integer.parseInt(field.getText());
     }
     
 }

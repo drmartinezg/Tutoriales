@@ -8,7 +8,7 @@ import es.duero4.tddinactionjee.swing.plotmap.model.PlotMapModel;
  */
 public interface PlotMapView {
 
-    void registerAddtionListener(PlotAdditionListener listener);
+    void registerAdditionListener(PlotAdditionListener listener);
     
     void registerRemovalListener(PlotRemovalListener listener);
     

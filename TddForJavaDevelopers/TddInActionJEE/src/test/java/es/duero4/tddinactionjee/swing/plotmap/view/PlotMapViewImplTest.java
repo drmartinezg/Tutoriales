@@ -4,6 +4,8 @@ import abbot.finder.matchers.NameMatcher;
 import abbot.tester.ComponentTester;
 import java.awt.Component;
 import java.awt.Point;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 import junit.extensions.abbot.ComponentTestFixture;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,7 +42,7 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
         tester = new ComponentTester();
         addedPoint = null;
         PlotMapViewImpl view = new PlotMapViewImpl();
-        view.registerAddtionListener(this);
+        view.registerAdditionListener(this);
         showFrame(view);
     }
     
