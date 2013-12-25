@@ -18,6 +18,7 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
     private PlotAdditionListener additionListener;
     private JTextField xCoordField, yCoordField;
     private JButton addButton;
+    private PlotMapCanvas canvas;
 
     public PlotMapViewImpl() {
         createWidgets();
@@ -26,7 +27,7 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
         add(addButton);
     }
 
-    private JButton createWidgets() {
+    private void createWidgets() {
         xCoordField = createTextField("x_coord_textfield");
         yCoordField = createTextField("y_coord_textfield");
         addButton = new JButton();
@@ -41,7 +42,7 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
             }
 
         });
-        return addButton;
+        canvas = createCanvas();
     }
 
     @Override
@@ -56,9 +57,9 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
 
     @Override
     public void drawPlotMap(PlotMapModel model) {
-        // Tell canvas to draw model's plot points
+        canvas.clear();
         for (Point point : model.points()) {
-            createCanvas().plot(point);
+            canvas.plot(point);
         }
     }
 

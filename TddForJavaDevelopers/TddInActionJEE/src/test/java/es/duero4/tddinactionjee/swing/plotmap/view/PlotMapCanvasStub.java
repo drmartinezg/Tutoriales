@@ -22,7 +22,7 @@ public class PlotMapCanvasStub implements PlotMapCanvas {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        plottedPoints.clear();
     }
 
     @Override

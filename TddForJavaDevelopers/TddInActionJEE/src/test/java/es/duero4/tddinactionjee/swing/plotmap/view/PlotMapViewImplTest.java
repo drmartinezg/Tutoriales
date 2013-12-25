@@ -9,6 +9,7 @@ import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import junit.extensions.abbot.ComponentTestFixture;
+import org.apache.commons.lang.mutable.MutableInt;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -88,6 +89,25 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
         model.add(p3);
         view.drawPlotMap(model);
         assertEquals(Arrays.asList(p1, p2, p3), canvas.plottedPoints);
+    }
+    
+    @Test
+    public void testViewCreatesItsCanvasJustOnce() throws Exception {
+        final MutableInt canvasesCreated = new MutableInt();
+        view = new PlotMapViewImpl() {
+            @Override
+            protected PlotMapCanvas createCanvas() {
+                // 1 - Increment a counter
+                canvasesCreated.increment();
+                return new PlotMapCanvasStub();
+            }
+        };
+        PlotMapModel model = new PlotMapModel();
+        model.add(new Point(1, 1));
+        view.drawPlotMap(model);
+        view.drawPlotMap(model);
+        // 2 - Should have been exactly one canvas
+        assertEquals(1, canvasesCreated.intValue());
     }
     
     private void typeIntoTextField(String name, String value) throws Exception {
