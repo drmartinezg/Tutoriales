@@ -2,6 +2,7 @@ package es.duero4.tddinactionjee.swing.plotmap.view;
 
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,16 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
         plots.add(point);
     }
 
+    @Override
+    public void paint(Graphics g) {
+        // 1 - Use black color for drawing
+        g.setColor(Color.BLACK);
+        for (Point p : plots) {
+            // 2 - Paint pixel at each point
+            g.drawLine(p.x, p.y, p.x, p.y);
+        }
+    }
+    
     @Override
     public void clear() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
