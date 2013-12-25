@@ -3,12 +3,16 @@ package es.duero4.tddinactionjee.swing.plotmap.view;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Ramon
  */
 public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
+
+    private List<Point> plots = new ArrayList<Point>();
 
     public PlotMapCanvasImpl() {
         setSize(200, 100);
@@ -17,7 +21,7 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
 
     @Override
     public void plot(Point point) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        plots.add(point);
     }
 
     @Override
