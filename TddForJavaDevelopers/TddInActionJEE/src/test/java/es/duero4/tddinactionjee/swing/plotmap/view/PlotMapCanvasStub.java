@@ -17,7 +17,7 @@ public class PlotMapCanvasStub implements PlotMapCanvas {
 
     @Override
     public void plot(Point point) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        plottedPoints.add(point);
     }
 
     @Override
