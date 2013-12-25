@@ -1,6 +1,7 @@
 package es.duero4.tddinactionjee.swing.plotmap.view;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Point;
 
 /**
@@ -11,6 +12,7 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
 
     public PlotMapCanvasImpl() {
         setSize(200, 100);
+        setBackground(Color.WHITE);
     }
 
     @Override
