@@ -56,6 +56,10 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
 
     @Override
     public void drawPlotMap(PlotMapModel model) {
+        // Tell canvas to draw model's plot points
+        for (Point point : model.points()) {
+            createCanvas().plot(point);
+        }
     }
 
     // Needed to make code compile
