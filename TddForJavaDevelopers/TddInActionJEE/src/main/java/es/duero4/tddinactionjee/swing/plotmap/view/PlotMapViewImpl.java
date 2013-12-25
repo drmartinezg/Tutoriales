@@ -58,6 +58,11 @@ public class PlotMapViewImpl extends JPanel implements PlotMapView {
     public void drawPlotMap(PlotMapModel model) {
     }
 
+    // Needed to make code compile
+    protected PlotMapCanvas createCanvas() {
+        return null;
+    }
+    
     private JTextField createTextField(String name) {
         JTextField field = new JTextField();
         field.setName(name);

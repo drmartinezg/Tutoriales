@@ -2,8 +2,10 @@ package es.duero4.tddinactionjee.swing.plotmap.view;
 
 import abbot.finder.matchers.NameMatcher;
 import abbot.tester.ComponentTester;
+import es.duero4.tddinactionjee.swing.plotmap.model.PlotMapModel;
 import java.awt.Component;
 import java.awt.Point;
+import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import junit.extensions.abbot.ComponentTestFixture;
@@ -23,6 +25,8 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
 
     private Point addedPoint;
     private ComponentTester tester;
+    private PlotMapViewImpl view;
+    private PlotMapCanvasStub canvas;
     
     public PlotMapViewImplTest(String name) {
         super(name);
@@ -41,7 +45,15 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
         super.setUp();
         tester = new ComponentTester();
         addedPoint = null;
-        PlotMapViewImpl view = new PlotMapViewImpl();
+        // 1 - Use test double for canvas
+        canvas = new PlotMapCanvasStub();
+        // 2 - View create its canvas with this method
+        view = new PlotMapViewImpl() {
+            @Override
+            protected PlotMapCanvas createCanvas() {
+                return canvas;
+            }
+        };
         view.registerAdditionListener(this);
         showFrame(view);
     }
@@ -65,6 +77,19 @@ public class PlotMapViewImplTest extends ComponentTestFixture implements PlotAdd
         assertEquals(point, addedPoint);
     }
 
+    @Test
+    public void testViewPassesModelToSeparateCanvasObjectForDrawing() throws Exception {
+        Point p1 = new Point(1, 3);
+        Point p2 = new Point(2, 1);
+        Point p3 = new Point(5, 4);
+        PlotMapModel model = new PlotMapModel();
+        model.add(p1);
+        model.add(p2);
+        model.add(p3);
+        view.drawPlotMap(model);
+        assertEquals(Arrays.asList(p1, p2, p3), canvas.plottedPoints);
+    }
+    
     private void typeIntoTextField(String name, String value) throws Exception {
         tester.actionKeyString(namedComponent(name), value);
     }
