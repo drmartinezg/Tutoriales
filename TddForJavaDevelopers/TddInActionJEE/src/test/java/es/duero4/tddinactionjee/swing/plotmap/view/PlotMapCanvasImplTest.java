@@ -67,4 +67,16 @@ public class PlotMapCanvasImplTest extends ComponentTestFixture {
         Pixel.in(raster).at(2, 2).shouldBe(Color.BLACK);
         Pixel.in(raster).around(2, 2).shouldBe(Color.WHITE);
     }
+    
+    @Test
+    public void testPlotsShouldBeConnected() throws Exception {
+        canvas.plot(new Point(2, 9));
+        canvas.plot(new Point(5, 6));
+        Raster raster = Bitmap.of(canvas);
+        // Check manually calculated coordinates
+        Pixel.in(raster).at(2, 9).shouldBe(Color.BLACK);
+        Pixel.in(raster).at(3, 8).shouldBe(Color.BLACK);
+        Pixel.in(raster).at(4, 7).shouldBe(Color.BLACK);
+        Pixel.in(raster).at(5, 6).shouldBe(Color.BLACK);
+    }
 }
