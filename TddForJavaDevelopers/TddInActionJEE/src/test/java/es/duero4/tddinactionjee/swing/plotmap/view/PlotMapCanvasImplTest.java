@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.awt.image.Raster;
+import java.util.ArrayList;
+import java.util.List;
 import junit.extensions.abbot.ComponentTestFixture;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -78,5 +81,26 @@ public class PlotMapCanvasImplTest extends ComponentTestFixture {
         Pixel.in(raster).at(3, 8).shouldBe(Color.BLACK);
         Pixel.in(raster).at(4, 7).shouldBe(Color.BLACK);
         Pixel.in(raster).at(5, 6).shouldBe(Color.BLACK);
+    }
+    
+    @Test
+    public void testPlotsShouldReactToClicksByTriggeringRemoveEvents() throws Exception {
+        final List<Point> removedPoints = new ArrayList<Point>();
+        // 1 - Register remove listener
+        canvas.addRemoveListener(new PointEventListener() {
+            @Override
+            public void onPointEvent(Point point) {
+                removedPoints.add(point);
+            }
+        });
+        Point point = new Point(5, 20);
+        canvas.plot(point);
+        // 2 - Simulate mouse click
+        canvas.dispatchEvent(new MouseEvent(canvas, 
+                MouseEvent.MOUSE_CLICKED, 
+                System.currentTimeMillis(), 
+                MouseEvent.BUTTON1_DOWN_MASK, 
+                point.x, point.y, 1, false));
+        assertTrue(removedPoints.contains(point));
     }
 }
