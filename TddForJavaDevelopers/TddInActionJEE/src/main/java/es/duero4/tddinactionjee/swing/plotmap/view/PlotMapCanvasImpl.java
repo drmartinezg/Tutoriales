@@ -27,11 +27,17 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
 
     @Override
     public void paint(Graphics g) {
-        // 1 - Use black color for drawing
         g.setColor(Color.BLACK);
-        for (Point p : plots) {
-            // 2 - Paint pixel at each point
-            g.drawLine(p.x, p.y, p.x, p.y);
+        Point previous = null;
+        for (Point current : plots) {
+            // 1 - First point doesn't have previous
+            if (previous == null) {
+                previous = current;
+            }
+            // 2 - Draw line from previous to current
+            g.drawLine(previous.x, previous.y, current.x, current.y);
+            // 3 - Prepare for next loop iteration
+            previous = current;
         }
     }
     
