@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +49,13 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
     }
 
     @Override
-    public void addRemoveListener(PointEventListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addRemoveListener(final PointEventListener listener) {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                listener.onPointEvent(e.getPoint());
+            }
+        });
     }
     
 }
