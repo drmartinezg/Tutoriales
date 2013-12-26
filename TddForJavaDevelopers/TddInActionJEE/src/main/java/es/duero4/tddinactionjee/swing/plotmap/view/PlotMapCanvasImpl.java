@@ -57,5 +57,9 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
             }
         });
     }
+
+    void setRemoveListener(PointEventListener pointEventListener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

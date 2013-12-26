@@ -24,6 +24,7 @@ import static org.junit.Assert.*;
 public class PlotMapCanvasImplTest extends ComponentTestFixture {
     
     private PlotMapCanvasImpl canvas;
+    private List<Point> removedPoints;
     
     public PlotMapCanvasImplTest(String name) {
         super(name);
@@ -41,7 +42,15 @@ public class PlotMapCanvasImplTest extends ComponentTestFixture {
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        removedPoints = new ArrayList<Point>();
         canvas = new PlotMapCanvasImpl();
+        // 1 - Register fake listener for remove events
+        canvas.setRemoveListener(new PointEventListener() {
+            @Override
+            public void onPointEvent(Point point) {
+                removedPoints.add(point);
+            }
+        });
     }
     
     @After
@@ -102,5 +111,29 @@ public class PlotMapCanvasImplTest extends ComponentTestFixture {
                 MouseEvent.BUTTON1_DOWN_MASK, 
                 point.x, point.y, 1, false));
         assertTrue(removedPoints.contains(point));
+    }
+    
+    @Test
+    public void testClickOnPlottedPointShouldTriggerRemoveEvent() throws Exception {
+        Point point = new Point(5, 20);
+        // 2 - Clicks on plotted points trigger event
+        canvas.plot(point);
+        simulateMouseClickAt(point.x, point.y);
+        assertTrue(removedPoints.contains(point));
+    }
+
+    @Test
+    public void testClickOnNonPlottedPointShouldBeIgnored() throws Exception {
+        // 3 - Ignore clicks on non-plotted points.
+        canvas.plot(new Point(100, 50));
+        simulateMouseClickAt(20, 30);
+        assertTrue(removedPoints.isEmpty());
+    }
+    
+    private void simulateMouseClickAt(int x, int y) {
+        canvas.dispatchEvent(new MouseEvent(canvas, 
+                MouseEvent.MOUSE_CLICKED, 
+                System.currentTimeMillis(), 
+                MouseEvent.BUTTON1_DOWN_MASK, x, y, 1, false));
     }
 }
