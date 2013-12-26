@@ -58,8 +58,17 @@ public class PlotMapCanvasImpl extends Canvas implements PlotMapCanvas {
         });
     }
 
-    void setRemoveListener(PointEventListener pointEventListener) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void setRemoveListener(final PointEventListener listener) {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Point point = e.getPoint();
+                // Interested only in plotted points
+                if (plots.contains(point)) {
+                    listener.onPointEvent(point);
+                }
+            }
+        });
     }
     
 }
