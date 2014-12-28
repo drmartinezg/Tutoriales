@@ -32,7 +32,7 @@ public class Customer {
         for (Rental rental : rentals) {
             double amount = 0;
             
-            amount = amountFor(rental);
+            amount = rental.getCharge();
 
             // add frequent renter points
             frequentRenterPoints++;
@@ -54,7 +54,4 @@ public class Customer {
         return result;
     }
 
-    private double amountFor(Rental rental) {
-        return rental.getCharge();
-    }
 }
