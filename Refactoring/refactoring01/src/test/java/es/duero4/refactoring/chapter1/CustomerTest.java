@@ -64,4 +64,9 @@ public class CustomerTest {
         assertThat(customer.statement(), is("Rental Record for Ramón\n\tThe Hulk\t1.5\n\tSpiderman\t2.0\n\tIron Man 4\t9.0\nAmount owed is 12.5\nYou earned 4 frequent renter points"));
     }
     
+    @Test
+    public void basicHtmlChildrensRental() {
+        customer.addRental(new Rental(THE_HULK, 2));
+        assertThat(customer.htmlStatement(), is("<h1>Rental Record for <b>Ramón</b></h1>\n<p>The Hulk\t1.5</p>\n<p>Amount owed is <b>1.5</b></p>\n<p>You earned <b>1</b> frequent renter points</p>"));
+    }
 }
