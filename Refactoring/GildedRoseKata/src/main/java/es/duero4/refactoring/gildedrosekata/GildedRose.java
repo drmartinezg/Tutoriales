@@ -30,7 +30,8 @@ public class GildedRose {
             Item current = items.get(i);
             String currentItemName = current.getName();
             boolean notBrie = !"Aged Brie".equals(currentItemName);
-            if (notBrie && !"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
+            boolean notBackstage = !"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName);
+            if (notBrie && notBackstage) {
                 if (current.getQuality() > 0) {
                     if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                         current.setQuality(current.getQuality() - 1);
@@ -62,7 +63,7 @@ public class GildedRose {
 
             if (current.getSellIn() < 0) {
                 if (currentItemName != "Aged Brie") {
-                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
+                    if (notBackstage) {
                         if (current.getQuality() > 0) {
                             if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                                 current.setQuality(current.getQuality() - 1);
