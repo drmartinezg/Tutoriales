@@ -27,10 +27,11 @@ public class GildedRose {
 
     public static void updateQuality() {
         for (int i = 0; i < items.size(); i++) {
-            boolean notBrie = !"Aged Brie".equals(items.get(i).getName());
-            if (notBrie && !"Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName())) {
+            String currentItemName = items.get(i).getName();
+            boolean notBrie = !"Aged Brie".equals(currentItemName);
+            if (notBrie && !"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
                 if (items.get(i).getQuality() > 0) {
-                    if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName())) {
+                    if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                         items.get(i).setQuality(items.get(i).getQuality() - 1);
                     }
                 }
@@ -38,7 +39,7 @@ public class GildedRose {
                 if (items.get(i).getQuality() < 50) {
                     items.get(i).setQuality(items.get(i).getQuality() + 1);
 
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName())) {
+                    if ("Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
                         if (items.get(i).getSellIn() < 11) {
                             if (items.get(i).getQuality() < 50) {
                                 items.get(i).setQuality(items.get(i).getQuality() + 1);
@@ -54,15 +55,15 @@ public class GildedRose {
                 }
             }
 
-            if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName())) {
+            if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                 items.get(i).setSellIn(items.get(i).getSellIn() - 1);
             }
 
             if (items.get(i).getSellIn() < 0) {
-                if (items.get(i).getName() != "Aged Brie") {
-                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(items.get(i).getName())) {
+                if (currentItemName != "Aged Brie") {
+                    if (!"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
                         if (items.get(i).getQuality() > 0) {
-                            if (!"Sulfuras, Hand of Ragnaros".equals(items.get(i).getName())) {
+                            if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                                 items.get(i).setQuality(items.get(i).getQuality() - 1);
                             }
                         }
