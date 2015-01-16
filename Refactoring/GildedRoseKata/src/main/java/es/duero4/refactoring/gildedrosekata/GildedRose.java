@@ -39,7 +39,8 @@ public class GildedRose {
             String currentItemName = current.getName();
             
             boolean notBrie = !AGED__BRIE.equals(currentItemName);
-            boolean notPass = !PASSES.equals(currentItemName);
+            boolean itIsAPass = PASSES.equals(currentItemName);
+            boolean notPass = !itIsAPass;
             boolean notSulfuras = !SULFURAS.equals(currentItemName);
             
             boolean norBrieNeitherPass = notBrie && notPass;
@@ -56,7 +57,7 @@ public class GildedRose {
                 if (maximumQualityNotReached) {
                     increaseQuality(current);
 
-                    if (PASSES.equals(currentItemName)) {
+                    if (itIsAPass) {
                         if (current.getSellIn() < 11) {
                             if (current.getQuality() < 50) {
                                 current.setQuality(current.getQuality() + 1);
@@ -96,10 +97,6 @@ public class GildedRose {
         }
     }
 
-    private static void increaseQuality(Item current) {
-        current.setQuality(current.getQuality() + GRANULARITY);
-    }
-
     public static List<Item> getItems() {
         return items;
     }
@@ -114,5 +111,9 @@ public class GildedRose {
     
     private static void decreaseQuality(Item current) {
         current.setQuality(current.getQuality() - GRANULARITY);
+    }
+
+    private static void increaseQuality(Item current) {
+        current.setQuality(current.getQuality() + GRANULARITY);
     }
 }
