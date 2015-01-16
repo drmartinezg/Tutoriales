@@ -84,15 +84,15 @@ public class GildedRose {
             }
 
             if (isItExpired(current)) {
-                if (currentItemName != AGED__BRIE) {
+                if (notBrie) {
                     if (notPass) {
                         if (hasSomeQuality) {
                             if (notSulfuras) {
-                                current.setQuality(current.getQuality() - 1);
+                                decreaseQuality(current);
                             }
                         }
                     } else {
-                        current.setQuality(current.getQuality() - current.getQuality());
+                        resetQuality(current);
                     }
                 } else {
                     if (current.getQuality() < 50) {
@@ -129,5 +129,9 @@ public class GildedRose {
 
     private static boolean isItExpired(Item current) {
         return current.getSellIn() < MINIMUM_SELLIN;
+    }
+
+    private static void resetQuality(Item current) {
+        current.setQuality(MINIMUM_QUALITY);
     }
 }
