@@ -15,6 +15,7 @@ public class GildedRose {
     private static final int DOUBLE_INCREMENT_THRESHOLD = 10;
     private static final int TRIPLE_INCREMENT_THRESHOLD = 5;
     private static final int SELLIN_GRANULARITY = 1;
+    private static final int MINIMUM_SELLIN = 0;
 
     private static List<Item> items = null;
 
@@ -45,8 +46,8 @@ public class GildedRose {
             boolean itIsAPass = PASSES.equals(currentItemName);
             boolean notPass = !itIsAPass;
             boolean notSulfuras = !SULFURAS.equals(currentItemName);
-            
             boolean norBrieNeitherPass = notBrie && notPass;
+            
             boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
             boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
             boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
@@ -82,7 +83,7 @@ public class GildedRose {
                 decreaseSellIn(current);
             }
 
-            if (current.getSellIn() < 0) {
+            if (isItExpired(current)) {
                 if (currentItemName != AGED__BRIE) {
                     if (notPass) {
                         if (hasSomeQuality) {
@@ -124,5 +125,9 @@ public class GildedRose {
     
     private static void decreaseSellIn(Item current) {
         current.setSellIn(current.getSellIn() - SELLIN_GRANULARITY);
+    }
+
+    private static boolean isItExpired(Item current) {
+        return current.getSellIn() < MINIMUM_SELLIN;
     }
 }
