@@ -54,7 +54,7 @@ public class GildedRose {
                 }
             } else {
                 if (maximumQualityNotReached) {
-                    current.setQuality(current.getQuality() + 1);
+                    increaseQuality(current);
 
                     if (PASSES.equals(currentItemName)) {
                         if (current.getSellIn() < 11) {
@@ -94,6 +94,10 @@ public class GildedRose {
                 }
             }
         }
+    }
+
+    private static void increaseQuality(Item current) {
+        current.setQuality(current.getQuality() + GRANULARITY);
     }
 
     public static List<Item> getItems() {
