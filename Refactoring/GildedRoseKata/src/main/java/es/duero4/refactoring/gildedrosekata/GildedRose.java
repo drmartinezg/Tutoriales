@@ -11,9 +11,10 @@ public class GildedRose {
 
     private static final int MAXIMUM_QUALITY = 50;
     private static final int MINIMUM_QUALITY = 0;
-    private static final int GRANULARITY = 1;
+    private static final int QUALITY_GRANULARITY = 1;
     private static final int DOUBLE_INCREMENT_THRESHOLD = 10;
     private static final int TRIPLE_INCREMENT_THRESHOLD = 5;
+    private static final int SELLIN_GRANULARITY = 1;
 
     private static List<Item> items = null;
 
@@ -78,7 +79,7 @@ public class GildedRose {
             }
 
             if (notSulfuras) {
-                current.setSellIn(current.getSellIn() - 1);
+                decreaseSellIn(current);
             }
 
             if (current.getSellIn() < 0) {
@@ -114,10 +115,14 @@ public class GildedRose {
     }
     
     private static void decreaseQuality(Item current) {
-        current.setQuality(current.getQuality() - GRANULARITY);
+        current.setQuality(current.getQuality() - QUALITY_GRANULARITY);
     }
 
     private static void increaseQuality(Item current) {
-        current.setQuality(current.getQuality() + GRANULARITY);
+        current.setQuality(current.getQuality() + QUALITY_GRANULARITY);
+    }
+    
+    private static void decreaseSellIn(Item current) {
+        current.setSellIn(current.getSellIn() - SELLIN_GRANULARITY);
     }
 }
