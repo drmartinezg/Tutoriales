@@ -48,9 +48,6 @@ public class GildedRose {
             boolean notSulfuras = !SULFURAS.equals(currentItemName);
             boolean norBrieNeitherPass = notBrie && notPass;
             
-            boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
-            boolean itIsInTripleIncrement = current.getSellIn() <= TRIPLE_INCREMENT_THRESHOLD;
-            
             if (norBrieNeitherPass) {
                 if (hasSomeQuality(current)) {
                     if (notSulfuras) {
@@ -62,13 +59,13 @@ public class GildedRose {
                     increaseQuality(current);
 
                     if (itIsAPass) {
-                        if (itIsInDoubleIncrement) {
+                        if (itIsInDoubleIncrement(current)) {
                             if (maximumQualityNotReached(current)) {
                                 increaseQuality(current);
                             }
                         }
 
-                        if (itIsInTripleIncrement) {
+                        if (itIsInTripleIncrement(current)) {
                             if (maximumQualityNotReached(current)) {
                                 increaseQuality(current);
                             }
@@ -99,11 +96,6 @@ public class GildedRose {
                 }
             }
         }
-    }
-
-    private static boolean maximumQualityNotReached(Item current) {
-        boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
-        return maximumQualityNotReached;
     }
 
     public static List<Item> getItems() {
@@ -141,5 +133,20 @@ public class GildedRose {
     private static boolean hasSomeQuality(Item current) {
         boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
         return hasSomeQuality;
+    }
+
+    private static boolean maximumQualityNotReached(Item current) {
+        boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
+        return maximumQualityNotReached;
+    }
+
+    private static boolean itIsInDoubleIncrement(Item current) {
+        boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
+        return itIsInDoubleIncrement;
+    }
+
+    private static boolean itIsInTripleIncrement(Item current) {
+        boolean itIsInTripleIncrement = current.getSellIn() <= TRIPLE_INCREMENT_THRESHOLD;
+        return itIsInTripleIncrement;
     }
 }
