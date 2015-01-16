@@ -55,21 +55,15 @@ public class GildedRose {
                     }
                 }
             } else {
-                if (maximumQualityNotReached(current)) {
-                    increaseQuality(current);
+                increaseQuality(current);
 
-                    if (itIsAPass) {
-                        if (itIsInDoubleIncrement(current)) {
-                            if (maximumQualityNotReached(current)) {
-                                increaseQuality(current);
-                            }
-                        }
+                if (itIsAPass) {
+                    if (itIsInDoubleIncrement(current)) {
+                        increaseQuality(current);
+                    }
 
-                        if (itIsInTripleIncrement(current)) {
-                            if (maximumQualityNotReached(current)) {
-                                increaseQuality(current);
-                            }
-                        }
+                    if (itIsInTripleIncrement(current)) {
+                        increaseQuality(current);
                     }
                 }
             }
@@ -90,9 +84,7 @@ public class GildedRose {
                         resetQuality(current);
                     }
                 } else {
-                    if (maximumQualityNotReached(current)) {
-                        increaseQuality(current);
-                    }
+                    increaseQuality(current);
                 }
             }
         }
@@ -115,6 +107,7 @@ public class GildedRose {
     }
 
     private static void increaseQuality(Item current) {
+        if (maximumQualityReached(current)) return;
         current.setQuality(current.getQuality() + QUALITY_GRANULARITY);
     }
     
@@ -131,22 +124,18 @@ public class GildedRose {
     }
 
     private static boolean hasSomeQuality(Item current) {
-        boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
-        return hasSomeQuality;
+        return current.getQuality() > MINIMUM_QUALITY;
     }
 
-    private static boolean maximumQualityNotReached(Item current) {
-        boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
-        return maximumQualityNotReached;
+    private static boolean maximumQualityReached(Item current) {
+        return current.getQuality() >= MAXIMUM_QUALITY;
     }
 
     private static boolean itIsInDoubleIncrement(Item current) {
-        boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
-        return itIsInDoubleIncrement;
+        return current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
     }
 
     private static boolean itIsInTripleIncrement(Item current) {
-        boolean itIsInTripleIncrement = current.getSellIn() <= TRIPLE_INCREMENT_THRESHOLD;
-        return itIsInTripleIncrement;
+        return current.getSellIn() <= TRIPLE_INCREMENT_THRESHOLD;
     }
 }
