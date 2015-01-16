@@ -12,6 +12,7 @@ public class GildedRose {
     private static final int MAXIMUM_QUALITY = 50;
     private static final int MINIMUM_QUALITY = 0;
     private static final int GRANULARITY = 1;
+    private static final int DOUBLE_INCREMENT_THRESHOLD = 10;
 
     private static List<Item> items = null;
 
@@ -46,6 +47,7 @@ public class GildedRose {
             boolean norBrieNeitherPass = notBrie && notPass;
             boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
             boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
+            boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
             
             if (norBrieNeitherPass) {
                 if (hasSomeQuality) {
@@ -58,7 +60,7 @@ public class GildedRose {
                     increaseQuality(current);
 
                     if (itIsAPass) {
-                        if (current.getSellIn() < 11) {
+                        if (itIsInDoubleIncrement) {
                             if (current.getQuality() < 50) {
                                 current.setQuality(current.getQuality() + 1);
                             }
