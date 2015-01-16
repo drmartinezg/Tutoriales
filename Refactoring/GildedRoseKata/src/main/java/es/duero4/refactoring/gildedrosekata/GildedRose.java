@@ -34,9 +34,10 @@ public class GildedRose {
             String currentItemName = current.getName();
             
             boolean notBrie = !AGED__BRIE.equals(currentItemName);
-            boolean notBackstage = !PASSES.equals(currentItemName);
+            boolean notPass = !PASSES.equals(currentItemName);
+            boolean norBrieNeitherPass = notBrie && notPass;
             
-            if (notBrie && notBackstage) {
+            if (norBrieNeitherPass) {
                 if (current.getQuality() > 0) {
                     if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                         current.setQuality(current.getQuality() - 1);
@@ -68,7 +69,7 @@ public class GildedRose {
 
             if (current.getSellIn() < 0) {
                 if (currentItemName != AGED__BRIE) {
-                    if (notBackstage) {
+                    if (notPass) {
                         if (current.getQuality() > 0) {
                             if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                                 current.setQuality(current.getQuality() - 1);
