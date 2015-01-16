@@ -5,6 +5,9 @@ import java.util.List;
 
 public class GildedRose {
 
+    private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String AGED__BRIE = "Aged Brie";
+
     private static List<Item> items = null;
 
     /**
@@ -16,10 +19,10 @@ public class GildedRose {
 
         items = new ArrayList<Item>();
         items.add(new Item("+5 Dexterity Vest", 10, 20));
-        items.add(new Item("Aged Brie", 2, 0));
+        items.add(new Item(AGED__BRIE, 2, 0));
         items.add(new Item("Elixir of the Mongoose", 5, 7));
         items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
-        items.add(new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20));
+        items.add(new Item(PASSES, 15, 20));
         items.add(new Item("Conjured Mana Cake", 3, 6));
 
         updateQuality();
@@ -29,8 +32,10 @@ public class GildedRose {
         for (int i = 0; i < items.size(); i++) {
             Item current = items.get(i);
             String currentItemName = current.getName();
-            boolean notBrie = !"Aged Brie".equals(currentItemName);
-            boolean notBackstage = !"Backstage passes to a TAFKAL80ETC concert".equals(currentItemName);
+            
+            boolean notBrie = !AGED__BRIE.equals(currentItemName);
+            boolean notBackstage = !PASSES.equals(currentItemName);
+            
             if (notBrie && notBackstage) {
                 if (current.getQuality() > 0) {
                     if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
@@ -41,7 +46,7 @@ public class GildedRose {
                 if (current.getQuality() < 50) {
                     current.setQuality(current.getQuality() + 1);
 
-                    if ("Backstage passes to a TAFKAL80ETC concert".equals(currentItemName)) {
+                    if (PASSES.equals(currentItemName)) {
                         if (current.getSellIn() < 11) {
                             if (current.getQuality() < 50) {
                                 current.setQuality(current.getQuality() + 1);
@@ -62,7 +67,7 @@ public class GildedRose {
             }
 
             if (current.getSellIn() < 0) {
-                if (currentItemName != "Aged Brie") {
+                if (currentItemName != AGED__BRIE) {
                     if (notBackstage) {
                         if (current.getQuality() > 0) {
                             if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
@@ -80,7 +85,7 @@ public class GildedRose {
             }
         }
     }
-
+    
     public static List<Item> getItems() {
         return items;
     }
