@@ -9,6 +9,7 @@ public class GildedRose {
     private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     private static final int MINIMUM_QUALITY = 0;
+    private static final int GRANULARITY = 1;
 
     private static List<Item> items = null;
 
@@ -37,14 +38,15 @@ public class GildedRose {
             
             boolean notBrie = !AGED__BRIE.equals(currentItemName);
             boolean notPass = !PASSES.equals(currentItemName);
+            boolean notSulfuras = !SULFURAS.equals(currentItemName);
+            
             boolean norBrieNeitherPass = notBrie && notPass;
             boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
-            boolean notSulfuras = !SULFURAS.equals(currentItemName);
             
             if (norBrieNeitherPass) {
                 if (hasSomeQuality) {
                     if (notSulfuras) {
-                        current.setQuality(current.getQuality() - 1);
+                        decreaseQuality(current);
                     }
                 }
             } else {
@@ -90,7 +92,7 @@ public class GildedRose {
             }
         }
     }
-    
+
     public static List<Item> getItems() {
         return items;
     }
@@ -101,5 +103,9 @@ public class GildedRose {
 
     public static void resetItems() {
         items = new ArrayList<Item>();
+    }
+    
+    private static void decreaseQuality(Item current) {
+        current.setQuality(current.getQuality() - GRANULARITY);
     }
 }
