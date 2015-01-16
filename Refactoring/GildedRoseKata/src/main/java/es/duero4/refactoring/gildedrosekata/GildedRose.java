@@ -48,7 +48,6 @@ public class GildedRose {
             boolean notSulfuras = !SULFURAS.equals(currentItemName);
             boolean norBrieNeitherPass = notBrie && notPass;
             
-            boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
             boolean itIsInDoubleIncrement = current.getSellIn() <= DOUBLE_INCREMENT_THRESHOLD;
             boolean itIsInTripleIncrement = current.getSellIn() <= TRIPLE_INCREMENT_THRESHOLD;
             
@@ -59,18 +58,18 @@ public class GildedRose {
                     }
                 }
             } else {
-                if (maximumQualityNotReached) {
+                if (maximumQualityNotReached(current)) {
                     increaseQuality(current);
 
                     if (itIsAPass) {
                         if (itIsInDoubleIncrement) {
-                            if (maximumQualityNotReached) {
+                            if (maximumQualityNotReached(current)) {
                                 increaseQuality(current);
                             }
                         }
 
                         if (itIsInTripleIncrement) {
-                            if (maximumQualityNotReached) {
+                            if (maximumQualityNotReached(current)) {
                                 increaseQuality(current);
                             }
                         }
@@ -94,12 +93,17 @@ public class GildedRose {
                         resetQuality(current);
                     }
                 } else {
-                    if (maximumQualityNotReached) {
+                    if (maximumQualityNotReached(current)) {
                         increaseQuality(current);
                     }
                 }
             }
         }
+    }
+
+    private static boolean maximumQualityNotReached(Item current) {
+        boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
+        return maximumQualityNotReached;
     }
 
     public static List<Item> getItems() {
