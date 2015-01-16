@@ -8,6 +8,8 @@ public class GildedRose {
     private static final String AGED__BRIE = "Aged Brie";
     private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+
+    private static final int MAXIMUM_QUALITY = 50;
     private static final int MINIMUM_QUALITY = 0;
     private static final int GRANULARITY = 1;
 
@@ -42,6 +44,7 @@ public class GildedRose {
             
             boolean norBrieNeitherPass = notBrie && notPass;
             boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
+            boolean maximumQualityNotReached = current.getQuality() < MAXIMUM_QUALITY;
             
             if (norBrieNeitherPass) {
                 if (hasSomeQuality) {
@@ -50,7 +53,7 @@ public class GildedRose {
                     }
                 }
             } else {
-                if (current.getQuality() < 50) {
+                if (maximumQualityNotReached) {
                     current.setQuality(current.getQuality() + 1);
 
                     if (PASSES.equals(currentItemName)) {
