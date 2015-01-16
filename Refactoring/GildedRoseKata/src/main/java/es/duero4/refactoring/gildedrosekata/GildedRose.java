@@ -7,6 +7,7 @@ public class GildedRose {
 
     private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private static final String AGED__BRIE = "Aged Brie";
+    private static final int MINIMUM_QUALITY = 0;
 
     private static List<Item> items = null;
 
@@ -36,9 +37,10 @@ public class GildedRose {
             boolean notBrie = !AGED__BRIE.equals(currentItemName);
             boolean notPass = !PASSES.equals(currentItemName);
             boolean norBrieNeitherPass = notBrie && notPass;
+            boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
             
             if (norBrieNeitherPass) {
-                if (current.getQuality() > 0) {
+                if (hasSomeQuality) {
                     if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                         current.setQuality(current.getQuality() - 1);
                     }
@@ -70,7 +72,7 @@ public class GildedRose {
             if (current.getSellIn() < 0) {
                 if (currentItemName != AGED__BRIE) {
                     if (notPass) {
-                        if (current.getQuality() > 0) {
+                        if (hasSomeQuality) {
                             if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
                                 current.setQuality(current.getQuality() - 1);
                             }
