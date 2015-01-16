@@ -5,8 +5,9 @@ import java.util.List;
 
 public class GildedRose {
 
-    private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private static final String AGED__BRIE = "Aged Brie";
+    private static final String PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
     private static final int MINIMUM_QUALITY = 0;
 
     private static List<Item> items = null;
@@ -22,7 +23,7 @@ public class GildedRose {
         items.add(new Item("+5 Dexterity Vest", 10, 20));
         items.add(new Item(AGED__BRIE, 2, 0));
         items.add(new Item("Elixir of the Mongoose", 5, 7));
-        items.add(new Item("Sulfuras, Hand of Ragnaros", 0, 80));
+        items.add(new Item(SULFURAS, 0, 80));
         items.add(new Item(PASSES, 15, 20));
         items.add(new Item("Conjured Mana Cake", 3, 6));
 
@@ -38,10 +39,11 @@ public class GildedRose {
             boolean notPass = !PASSES.equals(currentItemName);
             boolean norBrieNeitherPass = notBrie && notPass;
             boolean hasSomeQuality = current.getQuality() > MINIMUM_QUALITY;
+            boolean notSulfuras = !SULFURAS.equals(currentItemName);
             
             if (norBrieNeitherPass) {
                 if (hasSomeQuality) {
-                    if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
+                    if (notSulfuras) {
                         current.setQuality(current.getQuality() - 1);
                     }
                 }
@@ -65,7 +67,7 @@ public class GildedRose {
                 }
             }
 
-            if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
+            if (notSulfuras) {
                 current.setSellIn(current.getSellIn() - 1);
             }
 
@@ -73,7 +75,7 @@ public class GildedRose {
                 if (currentItemName != AGED__BRIE) {
                     if (notPass) {
                         if (hasSomeQuality) {
-                            if (!"Sulfuras, Hand of Ragnaros".equals(currentItemName)) {
+                            if (notSulfuras) {
                                 current.setQuality(current.getQuality() - 1);
                             }
                         }
