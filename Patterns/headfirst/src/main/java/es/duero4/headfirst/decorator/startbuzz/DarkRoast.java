@@ -7,7 +7,7 @@ package es.duero4.headfirst.decorator.startbuzz;
 public class DarkRoast extends Beverage {
 
     public DarkRoast() {
-        description = "Dark Roast";
+        description = "Dark Roast Coffee";
     }
 
     @Override
