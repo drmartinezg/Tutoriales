@@ -17,6 +17,11 @@ public class YearShould {
         assertThat(leapYear(1996), is(true));
     }
     
+    @Test public void
+    be_a_leap_year_if_divisible_by_400() {
+        assertThat(leapYear(1996), is(true));
+    }
+    
     private boolean leapYear(int year) {
         return new Year(year).leapYear();
     }
