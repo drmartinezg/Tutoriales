@@ -12,4 +12,10 @@ public class YearShould {
         Year year = new Year(1997);
         assertThat(year.leapYear(), is(false));
     }
+    
+    @Test public void
+    be_a_leap_year_if_divisible_by_4() {
+        Year year = new Year(1996);
+        assertThat(year.leapYear(), is(true));
+    }
 }
