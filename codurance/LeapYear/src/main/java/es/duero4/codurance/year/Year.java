@@ -6,6 +6,6 @@ public class Year {
     }
     
     public Boolean leapYear() {
-        return null;
+        return false;
     }
 }
