@@ -9,13 +9,15 @@ public class YearShould {
   
     @Test public void
     not_be_a_leap_year_if_not_divisible_by_4() {
-        Year year = new Year(1997);
-        assertThat(year.leapYear(), is(false));
+        assertThat(leapYear(1997), is(false));
     }
     
     @Test public void
     be_a_leap_year_if_divisible_by_4() {
-        Year year = new Year(1996);
-        assertThat(year.leapYear(), is(true));
+        assertThat(leapYear(1996), is(true));
+    }
+    
+    private boolean leapYear(int year) {
+        return new Year(year).leapYear();
     }
 }
