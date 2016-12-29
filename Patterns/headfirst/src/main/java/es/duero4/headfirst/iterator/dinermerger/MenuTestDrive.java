@@ -11,7 +11,9 @@ public class MenuTestDrive {
         PancakeHouseMenu pancakeHouseMenu = new PancakeHouseMenu();
         DinerMenu dinerMenu = new DinerMenu();
         
-        printMenu();
+//        printMenu();
+        Waitress waitress = new Waitress(pancakeHouseMenu, dinerMenu);
+        waitress.printMenu();
     }
 
     private static void printMenu() {
