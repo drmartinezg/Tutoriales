@@ -36,9 +36,15 @@ public class DinerMenu {
             numberOfItems = numberOfItems + 1;
         }
     }
-    
+
+// We're not going to need this method anymore and in fact, we don't want it
+// because it exposes out internal implementation!
     public MenuItem[] getMenuItems() {
         return menuItems;
+    }
+
+    public Iterator createIterator() {
+        return new DinerMenuIterator(menuItems);
     }
     
 }
