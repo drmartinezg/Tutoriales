@@ -34,10 +34,16 @@ public class PancakeHouseMenu {
         menuItems.add(menuItem);
     }
     
+// We're not going to need this method anymore and in fact, we don't want it
+// because it exposes out internal implementation!
     public ArrayList getMenuItems() {
         return menuItems;
     }
 
+    public Iterator createIterator() {
+        return new PancakeHouseIterator(menuItems);
+    }
+    
     @Override
     public String toString() {
         return "Objectville Pancake House Menu";
