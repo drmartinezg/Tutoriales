@@ -1,12 +1,13 @@
 package es.duero4.headfirst.iterator.dinermergercafe;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 /**
  *
  * @author ramon
  */
-public class CafeMenu {
+public class CafeMenu implements Menu {
     Hashtable menuItems = new Hashtable();
     
     public CafeMenu() {
@@ -26,8 +27,9 @@ public class CafeMenu {
         menuItems.put(menuItem.getName(), menuItem);
     }
     
-    public Hashtable getItems() {
-        return menuItems;
+    @Override
+    public Iterator createIterator() {
+        return menuItems.values().iterator();
     }
     
 }
