@@ -1,4 +1,4 @@
-package es.duero4.headfirst.iterator.dinermergercafe;
+package es.duero4.headfirst.iterator.transition;
 
 /**
  *
